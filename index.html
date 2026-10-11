@@ -2847,13 +2847,13 @@ PAGES["management-summary"] = {
       { name: "النتيجة التشغيلية", en: "OPERATING RESULT", value: -t26.operatingProfit, pct: "خسارة تشغيلية", tone: "bad", page: "operating-expenses",
         what: `النتيجة التشغيلية ${E.fmt(-t26.operatingProfit)} ريال (خسارة) — التشغيل اليومي يخسر قبل احتساب المصروفات الإدارية.`,
         why: "يعني أن النشاط الأساسي لا يغطي تكاليفه بعد — جوهر المشكلة المالية الحالية.",
-        watch: "نقطة العبور: رفع الإيرادات أو خفض التشغيل حتى تصل هذه النتيجة إلى صفر." },
+        watch: "نقطة التعادل: رفع الإيرادات أو خفض التشغيل حتى تصل هذه النتيجة إلى صفر." },
       { name: "المصروفات الإدارية", en: "OTHER EXPENSES", value: t26.managerialExpenses, pct: E.fmtPct(t26.mgrRatio) + " من الإيرادات", tone: "cost", page: "other-expenses",
         what: `المصروفات الإدارية ${E.fmt(t26.managerialExpenses)} ريال — ${E.fmtPct(E.compare("managerialExpenses", scope).variancePct, { sign: true, digits: 1 })} على نفس الأشهر (من ${E.fmt(pr.managerialExpenses)} إلى ${E.fmt(cu.managerialExpenses)} ريال).`,
         why: "هي الأعلى ارتفاعاً بين المصروفات التشغيلية والإدارية — تضيف ضغطاً على نتيجة خاسرة أصلاً.",
         watch: `البندان الرئيسيان: ${mgrTop.map(m => `${m.ar} (${E.fmt(m.value)})`).join(" و")}.` },
       { name: "صافي الخسارة", en: "NET LOSS", value: t26.netLoss, pct: E.fmtPct(t26.lossMargin) + " من الإيرادات", tone: "bad", page: "income-statement",
-        what: `صافي الخسارة ${E.fmt(t26.netLoss)} ريال منذ بداية السنة — على نفس الأشهر ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} مقابل 2025 على نفس الأشهر (من ${E.fmt(pr.netLoss)} إلى ${E.fmt(cu.netLoss)} ريال).`,
+        what: `صافي الخسارة ${E.fmt(t26.netLoss)} ريال منذ بداية السنة — على نفس الأشهر: ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} مقابل 2025 (من ${E.fmt(pr.netLoss)} إلى ${E.fmt(cu.netLoss)} ريال).`,
         why: `هو الرقم الذي يقرأه أصحاب القرار: الشركة تخسر ${(t26.netLoss / t26.revenue).toFixed(2)} ريال من كل ريال مبيعات.`,
         watch: `${E.lossMonthCount(scope)} من ${E.scopeAvailableMonths(2026, scope).length} أشهر خاسرة — متوسط الخسارة الشهرية ${E.fmt(t26.avgNetLoss)} ريال.` }
     ];
@@ -3007,7 +3007,7 @@ PAGES["income-statement"] = {
       <span class="toolbar-note">${scopeLabel(scope)} · ${FIN.meta.currency}</span>
     </div>
     ${UI.panel({ title: `قائمة الدخل — ${year}`, badge: `<span class="badge">QAR</span>`, body: UI.table({ heads, rightAlign: true, rows }) })}
-    ${UI.panel({ title: "التباين على نفس الأشهر — 2026 مقابل 2025 على نفس الأشهر (" + E.sharedText(scope) + ")", body: UI.table({
+    ${UI.panel({ title: "التباين — 2026 مقابل 2025 على نفس الأشهر (" + E.sharedText(scope) + ")", body: UI.table({
       heads: ["البند", "2026", "2025", "التباين", "نسبة التباين"], rightAlign: true,
       rows: cmpRows.map(r => {
         const downGood = ["المصروفات التشغيلية", "المصروفات الإدارية", "تكلفة المبيعات", "صافي الخسارة"].includes(r.name);
@@ -3591,7 +3591,7 @@ PAGES["yoy-bridge"] = {
       { html: `<b class="${r.v < 0 ? "pos" : "neg"}">${E.fmt(r.v, { sign: true })}</b>`, cls: "num" },
       { html: r.note }
     ] })) })})}
-    <div class="note-line">* القراءة: الأثر السالب يخفض الخسارة (تحسّن)، والأثر الموجب يرفعها. ** التحقق المحاسبي: ${E.fmt(t25.netLoss)} + (${E.fmt(-dRev, { sign: true })}) + (${E.fmt(dCogs, { sign: true })}) + (${E.fmt(dOpex, { sign: true })}) + (${E.fmt(dMgr, { sign: true })}) = ${E.fmt(checkSum)} — يطابق خسارة 2026 (${E.fmt(t26.netLoss)}).</div>
+    <div class="note-line">* القراءة: الأثر السالب يخفض الخسارة (تحسّن)، والأثر الموجب يرفعها. ** التحقق المحاسبي: ${E.fmt(t25.netLoss)} + (${E.fmt(-dRev, { sign: true })}) + (${E.fmt(dCogs, { sign: true })}) + (${E.fmt(dOpex, { sign: true })}) + (${E.fmt(dMgr, { sign: true })}) = ${E.fmt(checkSum)} — ${checkSum === t26.netLoss ? "يطابق" : "يفرق " + E.fmt(Math.abs(checkSum - t26.netLoss)) + " ريال عن"} خسارة 2026 (${E.fmt(t26.netLoss)}) بسبب تقريب أرقام المصدر.</div>
     ${UI.insight(`التحسن الإجمالي ${E.fmt(t25.netLoss - t26.netLoss)} ريال لم يأتِ من خفض المصروفات وحدها: نمو الإيرادات ساهم بأثر ${E.fmt(-(-dRev))} ريال إيجابي، وابتلعته جزئياً تكلفة المبيعات الإضافية (${E.fmt(dCogs)} ريال) وصعود المصروفات الإدارية (${E.fmt(dMgr)} ريال). الرسالة الإدارية: النمو وحده لا يكفي — كل ريال نمو إيرادات يجب ألا يصاحبه ريال نمو تكلفة بنفس السرعة.`)}
     ${UI.focus(["كبح نمو تكلفة المبيعات: كل نقطة خفض في نسبة التكلفة تحمي أثر النمو.", "إيقاف صعود المصروفات الإدارية — المجموعة التي تعمل ضد الاتجاه العام.", "البناء على جمود المصروفات التشغيلية: استمرار ضبطها مع نمو الإيرادات يضاعف التحسن تلقائياً."])}
     `;
@@ -3740,7 +3740,7 @@ PAGES["break-even"] = {
     <div class="kpi-row">
       ${UI.kpiPrimary({ label: "مبيعات التعادل المطلوبة", value: E.fmt(be.requiredSales), note: "ريال/شهر", delta: "حسب تقرير الشركة", deltaTone: "neutral", info: "مستوى المبيعات الشهرية الذي تتساوى عنده الإيرادات مع التكاليف." })}
       ${UI.kpiPrimary({ label: "المبيعات الفعلية المتوسطة", value: E.fmt(Math.round(t26.avgRevenue)), note: "ريال/شهر", delta: "فجوة " + E.fmt(be.requiredSales - Math.round(t26.avgRevenue)) + " ريال", deltaTone: "neg" })}
-      ${UI.kpiPrimary({ label: "الزيادة المطلوبة", value: "+" + (Math.round((be.requiredSales - Math.round(t26.avgRevenue)) / Math.round(t26.avgRevenue) * 1000) / 10) + "%", note: "للوصول للتعادل", delta: "هامش الربح الإجمالي " + E.fmtPct(be.grossMarginPct), deltaTone: "warn" })}
+      ${UI.kpiPrimary({ label: "الزيادة المطلوبة", value: "+" + (Math.round((be.requiredSales - Math.round(t26.avgRevenue)) / Math.round(t26.avgRevenue) * 1000) / 10) + "%", note: "للوصول للتعادل", delta: "هامش الربح الإجمالي الفعلي " + E.fmtPct(t26.grossMargin), deltaTone: "warn" })}
       ${UI.kpiPrimary({ label: "المصروفات الشهرية المتوسطة", value: E.fmt(Math.round(t26.totalExpenses / t26.monthCount)), note: (Math.round(t26.totalExpenses / t26.monthCount / t26.avgRevenue * 1000) / 10) + "% من متوسط المبيعات", delta: "المصروفات الثابتة: " + E.fmt(be.fixedMonthly.total) + "/شهر", deltaTone: "neutral" })}
     </div>
     ${UI.panel({ title: "خريطة التعادل — شهرياً", body: CH.breakEvenChart({
@@ -3756,8 +3756,8 @@ PAGES["break-even"] = {
     <div class="grid-2">
       ${UI.panel({ title: "التعادل المحسوب من البيانات الفعلية", body: `
         <ul class="facts">
-          <li><b>تعادل التكاليف الثابتة فقط</b> (إيجار 6,600 + Techflex 2,500 = ${E.fmt(be.fixedMonthly.total)}/شهر) بهامش ${E.fmtPct(t26.grossMargin)}: ${E.fmt(be.fixedMonthly.total)} ÷ ${E.fmtPct(gmExact, { digits: 1 })} = <b>${E.fmt(Math.round(be.fixedMonthly.total / gmExact * 100))} ريال/شهر</b></li>
-          <li><b>تعادل كل المصروفات الجارية</b> (متوسط ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))}/شهر) بهامش ${E.fmtPct(gmExact, { digits: 1 })}: ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))} ÷ ${E.fmtPct(gmExact, { digits: 1 })} = <b>${E.fmt(Math.round(t26.totalExpenses / t26.monthCount / gmExact * 100))} ريال/شهر</b></li>
+          <li><b>تعادل التكاليف الثابتة فقط</b> (إيجار 6,600 + Techflex 2,500 = ${E.fmt(be.fixedMonthly.total)}/شهر) بهامش ${E.fmtPct(t26.grossMargin)}: ${E.fmt(be.fixedMonthly.total)} ÷ ${E.fmtPct(gmExact, { digits: 2 })} = <b>${E.fmt(Math.round(be.fixedMonthly.total / gmExact * 100))} ريال/شهر</b></li>
+          <li><b>تعادل كل المصروفات الجارية</b> (متوسط ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))}/شهر) بهامش ${E.fmtPct(gmExact, { digits: 2 })}: ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))} ÷ ${E.fmtPct(gmExact, { digits: 2 })} = <b>${E.fmt(Math.round(t26.totalExpenses / t26.monthCount / gmExact * 100))} ريال/شهر</b></li>
           <li class="dim">هذان السيناريوهان محسوبان من الأرقام الفعلية للفترة الكاملة (${t26.monthCount} أشهر)؛ الرقم المعتمد في تقرير الشركة هو ${E.fmt(be.requiredSales)} ريال/شهر.</li>
         </ul>` })}
       ${UI.panel({ title: "قراءة الفجوة", body: `
@@ -3871,7 +3871,7 @@ PAGES["financial-risk"] = {
       { level: "مرتفع", tone: "crit", name: "خسارة تشغيلية مستمرة", ev: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ريال (" + E.scopeAvailableMonths(2026, scope).filter(k => FIN.years[2026][k].operatingExpenses > FIN.years[2026][k].grossProfit).length + " من " + E.scopeAvailableMonths(2026, scope).length + " أشهر خاسرة تشغيلياً)", impact: "تآكل رأس المال العامل شهراً بعد شهر", focus: "الوصول لنقطة التعادل (" + E.fmt(FIN.breakEven.requiredSales) + " ريال/شهر) كهدف أول" },
       { level: "متوسط", tone: "warn", name: "تراجع هامش الربح الإجمالي", ev: E.fmtPct(E.pri(scope).grossMargin) + " → " + E.fmtPct(E.cur(scope).grossMargin) + " (-" + E.fmtPct(Math.abs(E.cur(scope).grossMargin - E.pri(scope).grossMargin), { digits: 1 }) + " نقطة)", impact: "تقلص المساحة التشغيلية المتاحة لتغطية المصروفات", focus: "مراجعة التسعير والمشتريات؛ مستهدف 52–55%" },
       { level: "متوسط", tone: "warn", name: "صعود المصروفات الإدارية", ev: E.fmtPct(mgrCmp.variancePct, { sign: true, digits: 1 }) + " سنوياً (" + E.fmt(mgrCmp.prior) + " → " + E.fmt(mgrCmp.actual) + " ريال)", impact: "الاتجاه المعاكس لجهود ضبط التشغيل — يستهلك جزءاً من تحسن النتيجة", focus: "سقف شهري وفحص بندي «خدمات أخرى» و«مصروفات حكومية»" },
-      { level: "متوسط", tone: "warn", name: "تذبذب المبيعات الشهري", ev: "مدى التذبذب: " + E.fmt(bwRevR.worst.v) + "–" + E.fmt(bwRevR.best.v) + " ريال (±" + Math.round((bwRevR.best.v - bwRevR.worst.v) / bwRevR.worst.v * 100) + "%)", impact: "صعوبة التخطيط والالتزامات الثابتة (رواتب + إيجار)", focus: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت مستوى " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }
+      { level: "متوسط", tone: "warn", name: "تذبذب المبيعات الشهري", ev: "مدى التذبذب: " + E.fmt(bwRevR.worst.v) + "–" + E.fmt(bwRevR.best.v) + " ريال (أعلى بـ+" + Math.round((bwRevR.best.v - bwRevR.worst.v) / bwRevR.worst.v * 100) + "%)", impact: "صعوبة التخطيط والالتزامات الثابتة (رواتب + إيجار)", focus: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت مستوى " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }
     ];
     el.innerHTML = `
     ${UI.sectionHead("25", "FINANCIAL ANALYSIS · التحليل المالي", "المخاطر المالية", "كل خطر مصنّف بمستواه وأدلته الرقمية وتركيز الإدارة")}
@@ -3887,7 +3887,7 @@ PAGES["financial-risk"] = {
           </div>
         </div>`).join("")}
     </div>
-    ${UI.insight("الخطران المرتفعان مترابطان: الرواتب الجمودية + الخسارة التشغيلية. معالجتهما تبدأ من صفحة واحدة — خفض كتلة الرواتب من " + E.fmtPct(salaryOp / t26.revenue * 100) + " إلى 30–35% من الإيرادات يحرك في آن واحد: نقطة التعادل، والهامش الصافي، وقابلية الشركة لامتصاص التذبذب.")}
+    ${UI.insight("الخطران المرتفعان مترابطان: الرواتب الثابتة + الخسارة التشغيلية. معالجتهما تبدأ من صفحة واحدة — خفض كتلة الرواتب من " + E.fmtPct(salaryOp / t26.revenue * 100) + " إلى 30–35% من الإيرادات يحرك في آن واحد: نقطة التعادل، والهامش الصافي، وقابلية الشركة لامتصاص التذبذب.")}
     `;
   }
 };
@@ -3946,7 +3946,7 @@ PAGES["risks"] = {
       { cells: [{ html: "R02" }, { html: "<b>خسارة تشغيلية مستمرة</b>" }, { html: `<span class="risk-level lvl-crit">مرتفع</span>` }, { html: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ر.ق", cls: "num" }, { html: "استهداف التعادل " + E.fmt(FIN.breakEven.requiredSales) + "/شهر" }] },
       { cells: [{ html: "R03" }, { html: "<b>تراجع هامش الربح الإجمالي</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: E.fmtPct(E.pri(scope).grossMargin) + " → " + E.fmtPct(E.cur(scope).grossMargin), cls: "num" }, { html: "مراجعة التسعير والمشتريات" }] },
       { cells: [{ html: "R04" }, { html: "<b>صعود المصروفات الإدارية</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: E.fmtPct(mgrC3.variancePct, { sign: true, digits: 1 }) + " سنوياً", cls: "num" }, { html: "سقف شهري وفحص البنود" }] },
-      { cells: [{ html: "R05" }, { html: "<b>تذبذب المبيعات</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: "±" + Math.round((bwRevR2.best.v - bwRevR2.worst.v) / bwRevR2.worst.v * 100) + "% بين الشهور", cls: "num" }, { html: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }] }
+      { cells: [{ html: "R05" }, { html: "<b>تذبذب المبيعات</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: "أعلى بـ+" + Math.round((bwRevR2.best.v - bwRevR2.worst.v) / bwRevR2.worst.v * 100) + "% من أدنى شهر", cls: "num" }, { html: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }] }
     ] })})}
     `;
   }
@@ -3970,8 +3970,8 @@ PAGES["opportunities"] = {
     const ops = [
       { t: "تحرير فجوة الرواتب", d: `الرواتب التشغيلية ${E.fmt(salaryOp)} ريال (${E.fmtPct(salaryOp / t26.revenue * 100)} من الإيرادات) — خفضها إلى 30% من الإيرادات يحرر نحو ${E.fmt(Math.round(salaryOp - t26.revenue * 0.30))} ريال للفترة (الوضع الحالي ضمن نطاق 30–35%، والهدف الأدنى هو الرافعة).`, metric: E.fmt(salaryOp) + " ر.ق" },
       { t: "التفاوض على الإيجار", d: "6,600 ريال شهرياً بند ثابت — إعادة التفاوض أو الانتقال لموقع أقل تكلفة كل تخفيض 10% يوفر 7,920 ريال سنوياً (التكلفة الحالية 79,200 ريال سنوياً).", metric: "6,600/شهر" },
-      { t: "رفع الهامش 2.5–5.5 نقطة", d: `رفع هامش الربح الإجمالي من ${E.fmtPct(t26.grossMargin)} إلى نطاق 52–55% يضيف ${E.fmt(lift52)}–${E.fmt(lift55)} ريال ربح إجمالي عند نفس إيرادات الفترة.`, metric: "52–55%" },
-      { t: `استثمار زخم ${E.monthAr(bwRevO.best.key)}`, d: `تثبيت مستوى ${E.fmt(bwRevO.best.v)} ريال شهرياً (أعلى شهر) يرفع إيراد الفترة بمقدار ${E.fmt(bwRevO.best.v * t26.monthCount - t26.revenue)} ريال — ويقرب الشركة من هدف التعادل المعتمد (${E.fmt(FIN.breakEven.requiredSales)} ريال/شهر).`, metric: E.fmt(bwRevO.best.v) + " ر.ق" },
+      { t: `رفع الهامش ${(52 - t26.grossMargin).toFixed(1)}–${(55 - t26.grossMargin).toFixed(1)} نقطة`, d: `رفع هامش الربح الإجمالي من ${E.fmtPct(t26.grossMargin)} إلى نطاق 52–55% يضيف ${E.fmt(lift52)}–${E.fmt(lift55)} ريال ربح إجمالي عند نفس إيرادات الفترة.`, metric: "52–55%" },
+      { t: `استثمار زخم ${E.monthAr(bwRevO.best.key)}`, d: `تثبيت مستوى ${E.fmt(bwRevO.best.v)} ريال شهرياً (أعلى شهر) لو بقيت كل أشهر الفترة عند هذا المستوى لارتفع إيراد الفترة بمقدار ${E.fmt(bwRevO.best.v * t26.monthCount - t26.revenue)} ريال (افتراض، وليس أثراً محققاً) — ويقرب الشركة من هدف التعادل المعتمد (${E.fmt(FIN.breakEven.requiredSales)} ريال/شهر).`, metric: E.fmt(bwRevO.best.v) + " ر.ق" },
       { t: "حوكمة الإنفاق التسويقي", d: `${E.fmt(mktTotal)} ريال (Techflex ${E.fmt(get("techflex"))} + تسويق ${E.fmt(get("marketing"))}) بلا قياس عائد معلن — قياس ROI لكل قناة قبل أي تجديد عقود.`, metric: E.fmt(mktTotal) + " ر.ق" }
     ];
     el.innerHTML = `
