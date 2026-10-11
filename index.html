@@ -1020,18 +1020,18 @@ const FIN = {
     currencyAr: "ريال قطري",
     reportTitle: "FINANCIAL INTELLIGENCE REPORT",
     reportTitleAr: "تقرير الذكاء المالي",
-    periodCurrent: "January – July 2026",
-    periodCurrentAr: "يناير – يوليو 2026",
+    periodCurrent: "January – September 2026",
+    periodCurrentAr: "يناير – سبتمبر 2026",
     periodPrior: "January – July 2025",
     periodPriorAr: "يناير – يوليو 2025",
-    finalPeriod: "January – July 2026",
-    finalPeriodAr: "يناير – يوليو 2026",
+    finalPeriod: "January – September 2026",
+    finalPeriodAr: "يناير – سبتمبر 2026",
     /* ملاحظة مهنية: القوائم غير مدققة — لا نستخدم كلمة AUDITED */
     statusNote: "",
-    phaseNote: "المنصة مكتملة البيانات: يناير–يوليو 2025 و2026 — التحليل المالي الكامل مفعّل"
+    phaseNote: "المنصة مكتملة البيانات: يناير–يوليو 2025 و يناير–سبتمبر 2026 — التحليل المالي الكامل مفعّل"
   },
 
-  /* ترتيب الأشهر الكامل للنظام (7 أشهر) */
+  /* ترتيب الأشهر الكامل للنظام (9 أشهر — 2026) */
   months: [
     { key: "jan", ar: "يناير",   en: "Jan" },
     { key: "feb", ar: "فبراير", en: "Feb" },
@@ -1039,7 +1039,9 @@ const FIN = {
     { key: "apr", ar: "أبريل",  en: "Apr" },
     { key: "may", ar: "مايو",   en: "May" },
     { key: "jun", ar: "يونيو",  en: "Jun" },
-    { key: "jul", ar: "يوليو",  en: "Jul" }
+    { key: "jul", ar: "يوليو",  en: "Jul" },
+    { key: "aug", ar: "أغسطس", en: "Aug" },
+    { key: "sep", ar: "سبتمبر", en: "Sep" }
   ],
 
   /* بنود المصروفات التشغيلية (للهيكل التفصيلي) */
@@ -1261,6 +1263,28 @@ const FIN = {
         mgrDetail: { salaryManagerial: 3000, bankFees: 116, buffet: 51, printing: 0,
                      maintenance: 427, govern: 120, otherService: 245, cleaning: 325,
                      stationary: 38, vacation: 0, telephone: 1098, visa: 0, officeEquipment: 57 }
+      },
+      aug: {
+        revenue: 97576, cogs: 48954, grossProfit: 48623,
+        operatingExpenses: 45484, managerialExpenses: 6293, netLoss: 3154,
+        opexDetail: { rent: 6600, carMaintenance: 285, depreciation: 1521, techflex: 2500,
+                      commission: 2430, customs: 5710, marketing: 600, fuel: 706,
+                      employeeBenefit: 100, shipping: 2490, parking: 255, carInsurance: 0,
+                      vacationOperational: 0, salaryOperating: 21787, agentCommission: 500 },
+        mgrDetail: { salaryManagerial: 3000, bankFees: 20, buffet: 20, printing: 0,
+                     maintenance: 211, govern: 120, otherService: 1116, cleaning: 361,
+                     stationary: 373, vacation: 0, telephone: 994, visa: 0, officeEquipment: 78 }
+      },
+      sep: {
+        revenue: 107459, cogs: 55151, grossProfit: 52308,
+        operatingExpenses: 63925, managerialExpenses: 13751, netLoss: 25369,
+        opexDetail: { rent: 6600, carMaintenance: 40, depreciation: 1521, techflex: 2500,
+                      commission: 1998, customs: 4360, marketing: 0, fuel: 812,
+                      employeeBenefit: 8000, shipping: 2295, parking: 142, carInsurance: 0,
+                      vacationOperational: 0, salaryOperating: 34157, agentCommission: 1500 },
+        mgrDetail: { salaryManagerial: 4000, bankFees: 1046, buffet: 194, printing: 25,
+                     maintenance: 200, govern: 332, otherService: 1692, cleaning: 305,
+                     stationary: 378, vacation: 0, telephone: 1220, visa: 4360, officeEquipment: 0 }
       }
     }
   },
@@ -1281,9 +1305,14 @@ const FIN = {
       janapr: { revenue: 300427, cogs: 151674, grossProfit: 148753, operatingExpenses: 219911,
                 managerialExpenses: 32925, netLoss: 104083, totalExpenses: 252836,
                 grossMargin: 49.51 },
-      full: { revenue: 590570, cogs: 298683, grossProfit: 291887, operatingExpenses: 404440,
+      /* الإجماليات المنشورة لسبعة أشهر (يناير–يوليو) */
+      jul: { revenue: 590570, cogs: 298683, grossProfit: 291887, operatingExpenses: 404440,
               managerialExpenses: 55034, netLoss: 167587, totalExpenses: 459474,
-              grossMargin: 49.42 }
+              grossMargin: 49.42 },
+      /* الإجماليات المنشورة لتسعة أشهر (يناير–سبتمبر) — عمود Balance في القائمة */
+      full: { revenue: 795606, cogs: 402788, grossProfit: 392818, operatingExpenses: 513849,
+              managerialExpenses: 75079, netLoss: 196110, totalExpenses: 588928,
+              grossMargin: 49.37 }
     }
   },
 
@@ -1397,7 +1426,7 @@ const E = (function () {
   function qarFull(n, opts) { return fmt(n, opts) + " ريال قطري"; }
 
   /* ---------- الوصول للأشهر ---------- */
-  const monthOrder = ["jan", "feb", "mar", "apr", "may", "jun", "jul"];
+  const monthOrder = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep"];
   function monthMeta(key) { return FIN.months.find(m => m.key === key); }
   function monthAr(key) { const m = monthMeta(key); return m ? m.ar : key; }
   function monthEn(key) { const m = monthMeta(key); return m ? m.en : key; }
@@ -1421,7 +1450,7 @@ const E = (function () {
     scope = scope || {};
     const av = available(year);
     if (scope.period === "janapr") return ["jan", "feb", "mar", "apr"];
-    if (scope.period === "janjul") return monthOrder.slice(0, 7);
+    if (scope.period === "janjul") return monthOrder.slice(0, 7); /* يناير–يوليو */
     if (scope.period === "month") {
       const k = scope.monthKey || av[av.length - 1];
       return [k];
