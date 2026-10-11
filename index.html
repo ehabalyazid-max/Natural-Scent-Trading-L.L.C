@@ -1020,18 +1020,18 @@ const FIN = {
     currencyAr: "ريال قطري",
     reportTitle: "FINANCIAL INTELLIGENCE REPORT",
     reportTitleAr: "تقرير الذكاء المالي",
-    periodCurrent: "January – July 2026",
-    periodCurrentAr: "يناير – يوليو 2026",
+    periodCurrent: "January – September 2026",
+    periodCurrentAr: "يناير – سبتمبر 2026",
     periodPrior: "January – July 2025",
     periodPriorAr: "يناير – يوليو 2025",
-    finalPeriod: "January – July 2026",
-    finalPeriodAr: "يناير – يوليو 2026",
+    finalPeriod: "January – September 2026",
+    finalPeriodAr: "يناير – سبتمبر 2026",
     /* ملاحظة مهنية: القوائم غير مدققة — لا نستخدم كلمة AUDITED */
     statusNote: "",
-    phaseNote: "المنصة مكتملة البيانات: يناير–يوليو 2025 و2026 — التحليل المالي الكامل مفعّل"
+    phaseNote: "المنصة مكتملة البيانات: يناير–يوليو 2025 و يناير–سبتمبر 2026 — التحليل المالي الكامل مفعّل"
   },
 
-  /* ترتيب الأشهر الكامل للنظام (7 أشهر) */
+  /* ترتيب الأشهر الكامل للنظام (9 أشهر — 2026) */
   months: [
     { key: "jan", ar: "يناير",   en: "Jan" },
     { key: "feb", ar: "فبراير", en: "Feb" },
@@ -1039,7 +1039,9 @@ const FIN = {
     { key: "apr", ar: "أبريل",  en: "Apr" },
     { key: "may", ar: "مايو",   en: "May" },
     { key: "jun", ar: "يونيو",  en: "Jun" },
-    { key: "jul", ar: "يوليو",  en: "Jul" }
+    { key: "jul", ar: "يوليو",  en: "Jul" },
+    { key: "aug", ar: "أغسطس", en: "Aug" },
+    { key: "sep", ar: "سبتمبر", en: "Sep" }
   ],
 
   /* بنود المصروفات التشغيلية (للهيكل التفصيلي) */
@@ -1261,6 +1263,28 @@ const FIN = {
         mgrDetail: { salaryManagerial: 3000, bankFees: 116, buffet: 51, printing: 0,
                      maintenance: 427, govern: 120, otherService: 245, cleaning: 325,
                      stationary: 38, vacation: 0, telephone: 1098, visa: 0, officeEquipment: 57 }
+      },
+      aug: {
+        revenue: 97576, cogs: 48954, grossProfit: 48623,
+        operatingExpenses: 45484, managerialExpenses: 6293, netLoss: 3154,
+        opexDetail: { rent: 6600, carMaintenance: 285, depreciation: 1521, techflex: 2500,
+                      commission: 2430, customs: 5710, marketing: 600, fuel: 706,
+                      employeeBenefit: 100, shipping: 2490, parking: 255, carInsurance: 0,
+                      vacationOperational: 0, salaryOperating: 21787, agentCommission: 500 },
+        mgrDetail: { salaryManagerial: 3000, bankFees: 20, buffet: 20, printing: 0,
+                     maintenance: 211, govern: 120, otherService: 1116, cleaning: 361,
+                     stationary: 373, vacation: 0, telephone: 994, visa: 0, officeEquipment: 78 }
+      },
+      sep: {
+        revenue: 107459, cogs: 55151, grossProfit: 52308,
+        operatingExpenses: 63925, managerialExpenses: 13751, netLoss: 25369,
+        opexDetail: { rent: 6600, carMaintenance: 40, depreciation: 1521, techflex: 2500,
+                      commission: 1998, customs: 4360, marketing: 0, fuel: 812,
+                      employeeBenefit: 8000, shipping: 2295, parking: 142, carInsurance: 0,
+                      vacationOperational: 0, salaryOperating: 34157, agentCommission: 1500 },
+        mgrDetail: { salaryManagerial: 4000, bankFees: 1046, buffet: 194, printing: 25,
+                     maintenance: 200, govern: 332, otherService: 1692, cleaning: 305,
+                     stationary: 378, vacation: 0, telephone: 1220, visa: 4360, officeEquipment: 0 }
       }
     }
   },
@@ -1281,9 +1305,14 @@ const FIN = {
       janapr: { revenue: 300427, cogs: 151674, grossProfit: 148753, operatingExpenses: 219911,
                 managerialExpenses: 32925, netLoss: 104083, totalExpenses: 252836,
                 grossMargin: 49.51 },
-      full: { revenue: 590570, cogs: 298683, grossProfit: 291887, operatingExpenses: 404440,
+      /* الإجماليات المنشورة لسبعة أشهر (يناير–يوليو) */
+      jul: { revenue: 590570, cogs: 298683, grossProfit: 291887, operatingExpenses: 404440,
               managerialExpenses: 55034, netLoss: 167587, totalExpenses: 459474,
-              grossMargin: 49.42 }
+              grossMargin: 49.42 },
+      /* الإجماليات المنشورة لتسعة أشهر (يناير–سبتمبر) — عمود Balance في القائمة */
+      full: { revenue: 795606, cogs: 402788, grossProfit: 392818, operatingExpenses: 513849,
+              managerialExpenses: 75079, netLoss: 196110, totalExpenses: 588928,
+              grossMargin: 49.37 }
     }
   },
 
@@ -1369,7 +1398,7 @@ const E = (function () {
      المبيعات والربح الإجمالي وصافي النتيجة: بعلامة سالبة
      المصروفات وصافي الخسارة: بعلامة موجبة */
   const SIGNED = {
-    revenue: -1, grossProfit: -1, netProfit: -1, operatingProfit: -1,
+    revenue: 1, grossProfit: 1, netProfit: -1, operatingProfit: -1,
     cogs: 1, operatingExpenses: 1, managerialExpenses: 1, totalExpenses: 1, netLoss: 1
   };
   function fs(metric, v) { return v * (SIGNED[metric] || 1); }
@@ -1397,7 +1426,7 @@ const E = (function () {
   function qarFull(n, opts) { return fmt(n, opts) + " ريال قطري"; }
 
   /* ---------- الوصول للأشهر ---------- */
-  const monthOrder = ["jan", "feb", "mar", "apr", "may", "jun", "jul"];
+  const monthOrder = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep"];
   function monthMeta(key) { return FIN.months.find(m => m.key === key); }
   function monthAr(key) { const m = monthMeta(key); return m ? m.ar : key; }
   function monthEn(key) { const m = monthMeta(key); return m ? m.en : key; }
@@ -1421,7 +1450,7 @@ const E = (function () {
     scope = scope || {};
     const av = available(year);
     if (scope.period === "janapr") return ["jan", "feb", "mar", "apr"];
-    if (scope.period === "janjul") return monthOrder.slice(0, 7);
+    if (scope.period === "janjul") return monthOrder.slice(0, 7); /* يناير–يوليو */
     if (scope.period === "month") {
       const k = scope.monthKey || av[av.length - 1];
       return [k];
@@ -1503,7 +1532,7 @@ const E = (function () {
 
   /* ---------- المقارنة 2026 vs 2025 ----------
      المقارنات تُحسب على الأشهر المشتركة بين السنتين (عدالة المقارنة):
-     السنتان مكتملتان (7 أشهر لكل سنة) — المقارنة حالياً على 7 أشهر كاملة،
+     2025 متاح يناير–يوليو (7 أشهر)، و2026 متاح حتى آخر شهر مُدخل — المقارنة على الأشهر المشتركة،
      وتتقلص تلقائياً على النطاق المشترك لأي نطاق جزئي. */
   function compare(metric, scope) {
     const ms26 = scopeAvailableMonths(2026, scope);
@@ -1557,7 +1586,7 @@ const E = (function () {
   function waterfall(year, scope) {
     const t = totals(year, scope);
     /* الإشارات مطابقة للقائمة الأصلية: الإيرادات والربح الإجمالي بالسالب،
-       المصروفات وصافي الخسارة بالموجب — والمجموع التراكمي يساوي 167,587 لسنة 2026 */
+       المصروفات وصافي الخسارة بالموجب — والمجموع التراكمي = مجموع الأشهر المتاحة */
     return [
       { key: "revenue",  label: "الإيرادات",              value: -t.revenue,            kind: "rev" },
       { key: "cogs",     label: "تكلفة المبيعات",         value: t.cogs,                kind: "cost" },
@@ -1601,7 +1630,7 @@ const E = (function () {
 
   /* ---------- النسب المالية ---------- */
   function ratios(scope) {
-    const t26 = totals(2026, scope), t25 = totals(2025, scope);
+    const t26 = totals(2026, scope), t25 = totals(2025, scope), cu = cur(scope), pr = pri(scope);
     const c = m => compare(m, scope);
     const salaryOp = t26.months.reduce((a, k) => a + ((FIN.years[2026][k] && FIN.years[2026][k].opexDetail && FIN.years[2026][k].opexDetail.salaryOperating) || 0), 0);
     const bwRev = bestWorst(2026, "revenue", scope);
@@ -1612,7 +1641,7 @@ const E = (function () {
         result: fmtPct(t26.grossMargin), prior: fmtPct(t25.grossMargin),
         delta: c("grossMargin").pctPts,
         interpretation: "نسبة ما تبقّى من كل ريال مبيعات بعد تغطية تكلفة البضاعة — المؤشر الأول على كفاءة التسعير والمشتريات.",
-        implication: `هامش فوق 49% يعطي مساحة تشغيلية، لكن التراجع مقابل 2025 (${fmtPct(t25.grossMargin)}) يستدعي مراجعة التسعير وتكلفة المشتريات.` },
+        implication: `هامش ${fmtPct(cu.grossMargin)} على نفس الأشهر مقابل ${fmtPct(pr.grossMargin)} في 2025 — ${cu.grossMargin < pr.grossMargin ? "التراجع يستدعي مراجعة التسعير وتكلفة المشتريات." : "التحسن يحتاج تثبيتاً عبر مراجعة التسعير وتكلفة المشتريات."}` },
       { key: "netMargin", name: "هامش صافي الربح",
         formula: "صافي النتيجة ÷ الإيرادات",
         calc: `${fmt(t26.netProfit)} ÷ ${fmt(t26.revenue)}`,
@@ -1626,28 +1655,28 @@ const E = (function () {
         result: fmtPct(t26.opexRatio), prior: fmtPct(t25.opexRatio),
         delta: c("opexRatio").pctPts,
         interpretation: `وزن التشغيل على الإيرادات — ${fmtPct(t26.opexRatio)} تعني أن التشغيل يستهلك نحو ${Math.round(t26.opexRatio)} ريال من كل 100 ريال مبيعات.`,
-        implication: `انخفضت من ${fmtPct(t25.opexRatio)} في 2025 إلى ${fmtPct(t26.opexRatio)} — تحسن حقيقي، لكنها ما زالت أعلى بكثير من هامش الربح الإجمالي (${fmtPct(t26.grossMargin)}).` },
+        implication: `على نفس الأشهر: انخفضت من ${fmtPct(pr.opexRatio)} في 2025 إلى ${fmtPct(cu.opexRatio)} — تحسن حقيقي، لكنها ما زالت أعلى بكثير من هامش الربح الإجمالي (${fmtPct(cu.grossMargin)}).` },
       { key: "totalExpenseRatio", name: "نسبة إجمالي المصروفات",
         formula: "إجمالي المصروفات ÷ الإيرادات",
         calc: `${fmt(t26.totalExpenses)} ÷ ${fmt(t26.revenue)}`,
         result: fmtPct(t26.totalExpenseRatio), prior: fmtPct(t25.totalExpenseRatio),
         delta: c("totalExpenseRatio").pctPts,
         interpretation: "كل 100 ريال مبيعات كم ريالاً من المصروفات الإجمالية — فوق 100% تعني خسارة حتمية.",
-        implication: `${fmtPct(t26.totalExpenseRatio)} مقابل ${fmtPct(t25.totalExpenseRatio)} في 2025 — الشركة اقتربت من نقطة التعادل لكنها لم تصلها بعد.` },
+        implication: `${fmtPct(cu.totalExpenseRatio)} على نفس الأشهر مقابل ${fmtPct(pr.totalExpenseRatio)} في 2025 — ${cu.totalExpenseRatio < pr.totalExpenseRatio ? "تحسن النسبة يقرّب الشركة من نقطة التعادل لكنها لم تصلها بعد." : "ارتفاع النسبة يبعد الشركة عن نقطة التعادل."}` },
       { key: "revenueGrowth", name: "نمو الإيرادات (سنوي)",
         formula: "(إيرادات 2026 − إيرادات 2025) ÷ إيرادات 2025",
-        calc: `(${fmt(t26.revenue)} − ${fmt(t25.revenue)}) ÷ ${fmt(t25.revenue)}`,
+        calc: `(${fmt(cu.revenue)} − ${fmt(pr.revenue)}) ÷ ${fmt(pr.revenue)}`,
         result: fmtPct(c("revenue").variancePct, { sign: true }), prior: "—",
         delta: null,
         interpretation: "قوة المبيعات مقارنة بنفس الفترة من العام السابق.",
-        implication: `نمو صحي على مستوى الفترة: من ${fmt(t25.revenue)} ريال إلى ${fmt(t26.revenue)} ريال، بقيادة ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال — الأعلى في الفترة).` },
+        implication: `على نفس الأشهر: من ${fmt(pr.revenue)} ريال إلى ${fmt(cu.revenue)} ريال. إجمالي 2026 حتى ${monthAr(latestMonth(2026))} بلغ ${fmt(t26.revenue)} ريال، وأعلى شهر ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال).` },
       { key: "lossImprove", name: "تحسّن صافي الخسارة",
         formula: "(خسارة 2026 − خسارة 2025) ÷ خسارة 2025",
-        calc: `(${fmt(t26.netLoss)} − ${fmt(t25.netLoss)}) ÷ ${fmt(t25.netLoss)}`,
+        calc: `(${fmt(cu.netLoss)} − ${fmt(pr.netLoss)}) ÷ ${fmt(pr.netLoss)}`,
         result: fmtPct(c("netLoss").variancePct, { sign: true }), prior: "—",
         delta: null,
         interpretation: "مدى انكماش الخسارة بين العامين — القيمة السالبة تعني تحسناً.",
-        implication: `توفير ${fmt(t25.netLoss - t26.netLoss)} ريال في الخسارة (من ${fmt(t25.netLoss)} إلى ${fmt(t26.netLoss)} ريال)؛ المسار صحيح لكنه لم يصل بعد لمنطقة الربحية.` },
+        implication: `على نفس الأشهر: توفير ${fmt(pr.netLoss - cu.netLoss)} ريال في الخسارة (من ${fmt(pr.netLoss)} إلى ${fmt(cu.netLoss)} ريال)؛ المسار صحيح لكنه لم يصل بعد لمنطقة الربحية.` },
       { key: "salaryToRevenue", name: "الرواتب إلى الإيرادات",
         formula: "الرواتب التشغيلية ÷ الإيرادات",
         calc: `${fmt(salaryOp)} ÷ ${fmt(t26.revenue)}`,
@@ -1670,9 +1699,32 @@ const E = (function () {
     const ms = scopeAvailableMonths(2026, scope);
     return ms.reduce((a, k) => a + ((FIN.years[2026][k] && FIN.years[2026][k].opexDetail && FIN.years[2026][k].opexDetail.salaryOperating) || 0), 0);
   }
+  /* ---------- المقارنة على الأشهر المشتركة ----------
+     2025 متاح يناير–يوليو فقط؛ أي مقارنة 2026 مقابل 2025 تُحسب على الأشهر المشتركة */
+  function sharedMonths(scope) {
+    const a = scopeAvailableMonths(2026, scope), b = scopeAvailableMonths(2025, scope);
+    return a.filter(k => b.includes(k));
+  }
+  function cur(scope) { return totalsFor(2026, sharedMonths(scope)); }
+  function pri(scope) { return totalsFor(2025, sharedMonths(scope)); }
+  function sharedText(scope) {
+    const ms = sharedMonths(scope);
+    if (!ms.length) return "لا توجد أشهر مشتركة";
+    return ms.length === 1 ? monthAr(ms[0]) : `${monthAr(ms[0])} – ${monthAr(ms[ms.length - 1])} · ${ms.length} أشهر`;
+  }
+  function lossMonthCount(scope) {
+    return scopeAvailableMonths(2026, scope).filter(k => FIN.years[2026][k].netLoss > 0).length;
+  }
+  function latestMonth(year) { const av = available(year); return av[av.length - 1]; }
+  /* مفتاح الشهر الذي يعطي أعلى قيمة لـ fn(k) ضمن الأشهر المتاحة (للأدنى: استخدم -fn) */
+  function extremeKey(fn, scope) {
+    const ms = scopeAvailableMonths(2026, scope);
+    return ms.reduce((a, k) => fn(k) > fn(a) ? k : a);
+  }
+
   function signals(scope) {
     const c = m => compare(m, scope);
-    const t26 = totals(2026, scope), t25 = totals(2025, scope);
+    const t26 = totals(2026, scope), t25 = totals(2025, scope), cu = cur(scope), pr = pri(scope);
     const r = c("revenue"), gp = c("grossProfit"), op = c("operatingExpenses"),
           mgr = c("managerialExpenses"), nl = c("netLoss"), gm = c("grossMargin"), opr = c("opexRatio");
     const bwRev = bestWorst(2026, "revenue", scope);
@@ -1681,7 +1733,7 @@ const E = (function () {
     const salaryPctRev = salaryOp / t26.revenue * 100;
     const salaryPctGp = salaryOp / t26.grossProfit * 100;
     const totalExpGp = t26.totalExpenses / t26.grossProfit * 100;
-    const sharedLabel = r.sharedCount === 7 ? "7 أشهر كاملة" : `على الأشهر المشتركة (${r.sharedCount} أشهر)`;
+    const sharedLabel = `على الأشهر المشتركة مع 2025 (${sharedText(scope)})`;
     const opStruct = opexStructure(2026, scope);
     const mkt = (opStruct.find(x => x.key === "marketing") || { value: 0 }).value;
     const techflex = (opStruct.find(x => x.key === "techflex") || { value: 0 }).value;
@@ -1689,24 +1741,24 @@ const E = (function () {
     return {
       positive: [
         { title: "نمو الإيرادات السنوي",
-          text: `الإيرادات المسجلة ${fmtS("revenue", t26.revenue)} ريال مقابل ${fmt(r.prior)} ريال في 2025 (${sharedLabel}) — نمو ${fmt(Math.abs(r.variance))} ريال (${fmtPct(r.variancePct, { sign: true, digits: 1 })}), و${monthAr(bwRev.best.key)} كان الأعلى (${fmt(bwRev.best.v)} ريال).`,
+          text: `على نفس الأشهر (${sharedLabel}) بلغت الإيرادات ${fmt(Math.abs(r.actual))} ريال مقابل ${fmt(Math.abs(r.prior))} ريال في 2025 — نمو ${fmt(Math.abs(r.variance))} ريال (${fmtPct(r.variancePct, { sign: true, digits: 1 })}). إجمالي 2026 حتى ${monthAr(latestMonth(2026))} ${fmt(t26.revenue)} ريال، وأعلى شهر ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال).`,
           metric: `${fmtPct(r.variancePct, { sign: true, digits: 1 })}` },
         { title: "تحسّن صافي الخسارة",
-          text: `تراجعت الخسارة من ${fmt(nl.prior)} إلى ${fmt(t26.netLoss)} ريال — توفير ${fmt(Math.abs(nl.variance))} ريال (${fmtPct(nl.variancePct, { sign: true, digits: 1 })}).`,
+          text: `تراجعت الخسارة على نفس الأشهر من ${fmt(nl.prior)} إلى ${fmt(nl.actual)} ريال — توفير ${fmt(Math.abs(nl.variance))} ريال (${fmtPct(nl.variancePct, { sign: true, digits: 1 })}).`,
           metric: `${fmtPct(nl.variancePct, { sign: true, digits: 1 })}` },
         { title: "تحسّن نسبة المصروفات التشغيلية",
-          text: `انخفضت نسبتها من الإيرادات من ${fmtPct(t25.opexRatio)} (2025) إلى ${fmtPct(t26.opexRatio)} — نمو الإيرادات (${fmtPct(r.variancePct, { sign: true, digits: 1 })}) فاق نمو المصروفات (${fmtPct(op.variancePct, { sign: true, digits: 1 })}).`,
+          text: `انخفضت نسبتها من الإيرادات على نفس الأشهر من ${fmtPct(pr.opexRatio)} (2025) إلى ${fmtPct(cu.opexRatio)} — نمو الإيرادات (${fmtPct(r.variancePct, { sign: true, digits: 1 })}) فاق نمو المصروفات (${fmtPct(op.variancePct, { sign: true, digits: 1 })}).`,
           metric: `${fmtPct(Math.abs(opr.pctPts), { digits: 1 })} نقطة` },
         { title: `${monthAr(bwNl.worst.key)} الأقرب للتعادل`,
-          text: `سجل أقل خسارة في الفترة (${fmt(bwNl.worst.v)} ريال) بعد خفض المصروفات التشغيلية إلى ${fmt(bestMonth.operatingExpenses)} ريال — أسلوب تشغيل يستحق التثبيت.`,
+          text: `سجل أقل خسارة في الفترة (${fmt(bwNl.worst.v)} ريال) بمصروفات تشغيلية ${fmt(bestMonth.operatingExpenses)} ريال وإيرادات ${fmt(bestMonth.revenue)} ريال — أسلوب تشغيل يستحق التثبيت.`,
           metric: monthAr(bwNl.worst.key) }
       ],
       warning: [
         { title: "تراجع هامش الربح الإجمالي",
-          text: `انخفض من ${fmtPct(gm.prior)} (2025) إلى ${fmtPct(t26.grossMargin)} — تقلص المساحة التشغيلية بمقدار ${fmtPct(Math.abs(gm.pctPts), { digits: 1 })} نقطة.`,
+          text: `على نفس الأشهر انخفض من ${fmtPct(gm.prior)} (2025) إلى ${fmtPct(gm.actual)} — تقلص المساحة التشغيلية بمقدار ${fmtPct(Math.abs(gm.pctPts), { digits: 1 })} نقطة.`,
           metric: `${fmtPct(gm.pctPts, { sign: true, digits: 1 })} نقطة` },
         { title: "ارتفاع المصروفات الإدارية",
-          text: `ارتفعت من ${fmt(mgr.prior)} إلى ${fmt(t26.managerialExpenses)} ريال (${fmtPct(mgr.variancePct, { sign: true, digits: 1 })}) — الاتجاه معاكس لجهود ضبط التشغيل.`,
+          text: `على نفس الأشهر ارتفعت من ${fmt(mgr.prior)} إلى ${fmt(mgr.actual)} ريال (${fmtPct(mgr.variancePct, { sign: true, digits: 1 })}) — الاتجاه معاكس لجهود ضبط التشغيل.`,
           metric: `${fmtPct(mgr.variancePct, { sign: true, digits: 1 })}` },
         { title: "تذبذب المبيعات الشهري",
           text: `${monthAr(bwRev.worst.key)} كان الأدنى (${fmt(bwRev.worst.v)} ريال) مقابل ${monthAr(bwRev.best.key)} الأعلى (${fmt(bwRev.best.v)} ريال) — مدى تذبذب ${fmtPct((bwRev.best.v - bwRev.worst.v) / bwRev.worst.v * 100, { sign: true, digits: 0 })}.`,
@@ -1722,8 +1774,8 @@ const E = (function () {
         { title: `الرواتب تستحوذ على ${fmtPct(salaryPctGp)} من الربح الإجمالي`,
           text: `تكاد تستهلك كامل الربح الإجمالي المسجل (${fmtS("grossProfit", t26.grossProfit)} ريال) قبل أي مصروف آخر.`,
           metric: `${fmtPct(salaryPctGp)}` },
-        { title: "خسارة صافية في كل شهر",
-          text: `كل الأشهر المتاحة خاسرة (المتوسط ${fmt(t26.avgNetLoss)} ريال/شهر) — لم يتحقق أي شهر ربحي حتى الآن.`,
+        { title: lossMonthCount(scope) === scopeAvailableMonths(2026, scope).length ? "خسارة صافية في كل شهر" : `خسارة صافية في ${lossMonthCount(scope)} من ${scopeAvailableMonths(2026, scope).length} أشهر`,
+          text: `متوسط الخسارة الشهرية ${fmt(t26.avgNetLoss)} ريال — ${lossMonthCount(scope) === scopeAvailableMonths(2026, scope).length ? "لم يتحقق أي شهر ربحي حتى الآن." : "الأشهر الربحية تبقى استثناءً محدوداً."}`,
           metric: `${fmt(t26.avgNetLoss)}/شهر` },
         { title: `هامش صافي سالب ${fmtPct(t26.netMargin)}`,
           text: `كل 100 ريال مبيعات تخسر الشركة منه ${(t26.netLoss / t26.revenue * 100).toFixed(2)} ريال بعد كل التكاليف.`,
@@ -1751,47 +1803,49 @@ const E = (function () {
 
   /* ---------- نصوص تحليلية مولّدة من الأرقام (بدون أسباب مخترعة) ---------- */
   function insightFor(metric, scope) {
-    const t26 = totals(2026, scope), t25 = totals(2025, scope), c = compare(metric, scope);
+    const t26 = totals(2026, scope), t25 = totals(2025, scope), c = compare(metric, scope), cu = cur(scope), pr = pri(scope);
     const sharedLabel = c.sharedCount === 7 ? "" : ` على الأشهر المشتركة (${c.sharedCount} ${c.sharedCount === 2 ? "شهرين" : "أشهر"})`;
     const vv = c.variancePct === null ? "" : ` (${fmtPct(c.variancePct, { sign: true, digits: 1 })} مقابل 2025${sharedLabel})`;
     const bwRev = bestWorst(2026, "revenue", scope);
     const bwNl = bestWorst(2026, "netLoss", scope);
     const salaryOp = salaryOpTotal(scope);
     const T = {
-      revenue: `بلغت الإيرادات ${fmtS("revenue", t26.revenue)} ريال${vv}. أعلى شهر (بالقيمة المطلقة): ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال)، وأدنى شهر: ${monthAr(bwRev.worst.key)} (${fmt(bwRev.worst.v)} ريال). أسباب التذبذب الشهري تتطلب بيانات إضافية.`,
-      cogs: `بلغت تكلفة المبيعات ${fmt(t26.cogs)} ريال أي ${fmtPct(t26.cogsPct)} من الإيرادات، مقابل ${fmtPct(t25.cogsPct)} في 2025. ارتفاع النسبة يضغط هامش الربح الإجمالي مباشرة.`,
-      grossProfit: `بلغ الربح الإجمالي ${fmtS("grossProfit", t26.grossProfit)} ريال (${fmtPct(t26.grossMargin)})، بارتفاع ${fmtPct(c.variancePct, { sign: true, digits: 1 })} عن 2025 (كان ${fmtS("grossProfit", t25.grossProfit)} ريال). الهامش تراجع ${fmtPct(Math.abs(compare("grossMargin", scope).pctPts), { digits: 1 })} نقطة من ${fmtPct(t25.grossMargin)} (2025) إلى ${fmtPct(t26.grossMargin)}.`,
-      operatingExpenses: `بلغت المصروفات التشغيلية ${fmt(t26.operatingExpenses)} ريال (${fmtPct(t26.opexRatio)} من الإيرادات) بتغير ${fmtPct(c.variancePct, { sign: true, digits: 1 })} عن 2025 (كانت ${fmt(t25.operatingExpenses)} ريال). الرواتب التشغيلية (${fmt(salaryOp)} ريال) تمثل ${fmtPct(salaryOp / t26.operatingExpenses * 100)} من الإجمالي.`,
-      managerialExpenses: `بلغت المصروفات الإدارية ${fmt(t26.managerialExpenses)} ريال (${fmtPct(t26.mgrRatio)} من الإيرادات) بارتفاع ${fmtPct(c.variancePct, { sign: true, digits: 1 })} عن 2025 (كانت ${fmt(t25.managerialExpenses)} ريال) — الاتجاه الوحيد الصاعد بين مجموعات المصروفات.`,
-      netLoss: `بلغ صافي الخسارة ${fmt(t26.netLoss)} ريال (${fmtPct(t26.lossMargin)} من الإيرادات) بتحسن ${fmtPct(c.variancePct, { sign: true, digits: 1 })} عن 2025 (كانت الخسارة ${fmt(t25.netLoss)} ريال). كل الأشهر المتاحة خاسرة — متوسط ${fmt(t26.avgNetLoss)} ريال/شهر.`
+      revenue: `إجمالي الإيرادات منذ بداية السنة ${fmt(t26.revenue)} ريال. على نفس الأشهر مع 2025 (${sharedText(scope)}): ${fmt(Math.abs(c.actual))} ريال مقابل ${fmt(Math.abs(c.prior))} ريال، أي ${fmtPct(c.variancePct, { sign: true, digits: 1 })}. أعلى شهر (بالقيمة المطلقة): ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال)، وأدنى شهر: ${monthAr(bwRev.worst.key)} (${fmt(bwRev.worst.v)} ريال).`,
+      cogs: `بلغت تكلفة المبيعات ${fmt(t26.cogs)} ريال أي ${fmtPct(t26.cogsPct)} من الإيرادات منذ بداية السنة. على نفس الأشهر (${sharedText(scope)}): ${fmtPct(cu.cogsPct)} مقابل ${fmtPct(pr.cogsPct)} في 2025. ${cu.cogsPct > pr.cogsPct ? "ارتفاع النسبة يضغط هامش الربح الإجمالي مباشرة." : "انخفاض النسبة يدعم هامش الربح الإجمالي."}`,
+      grossProfit: `بلغ الربح الإجمالي ${fmt(t26.grossProfit)} ريال بهامش ${fmtPct(t26.grossMargin)} منذ بداية السنة. على نفس الأشهر مع 2025 (${sharedText(scope)}): ${fmt(Math.abs(c.actual))} ريال مقابل ${fmt(Math.abs(c.prior))} ريال، أي ${fmtPct(c.variancePct, { sign: true, digits: 1 })}. الهامش على نفس الأشهر ${fmtPct(cu.grossMargin)} مقابل ${fmtPct(pr.grossMargin)} في 2025 (${fmtPct(Math.abs(compare("grossMargin", scope).pctPts), { digits: 1 })} نقطة ${compare("grossMargin", scope).pctPts < 0 ? "تراجع" : "تحسن"}).`,
+      operatingExpenses: `بلغت المصروفات التشغيلية ${fmt(t26.operatingExpenses)} ريال (${fmtPct(t26.opexRatio)} من الإيرادات) منذ بداية السنة. على نفس الأشهر مع 2025: ${fmt(c.actual)} مقابل ${fmt(c.prior)} ريال، أي ${fmtPct(c.variancePct, { sign: true, digits: 1 })}. الرواتب التشغيلية (${fmt(salaryOp)} ريال) تمثل ${fmtPct(salaryOp / t26.operatingExpenses * 100)} من الإجمالي.`,
+      managerialExpenses: `بلغت المصروفات الإدارية ${fmt(t26.managerialExpenses)} ريال (${fmtPct(t26.mgrRatio)} من الإيرادات) منذ بداية السنة. على نفس الأشهر مع 2025: ${fmt(c.actual)} مقابل ${fmt(c.prior)} ريال، أي ${fmtPct(c.variancePct, { sign: true, digits: 1 })} — ${c.variancePct > compare("operatingExpenses", scope).variancePct ? "الأعلى ارتفاعاً بين المصروفات التشغيلية والإدارية." : "أقل ارتفاعاً من المصروفات التشغيلية."}`,
+      netLoss: `بلغ صافي الخسارة ${fmt(t26.netLoss)} ريال (${fmtPct(t26.lossMargin)} من الإيرادات) منذ بداية السنة. على نفس الأشهر مع 2025: ${fmt(c.actual)} مقابل ${fmt(c.prior)} ريال، أي ${fmtPct(c.variancePct, { sign: true, digits: 1 })}. ${lossMonthCount(scope)} من ${scopeAvailableMonths(2026, scope).length} أشهر خاسرة — متوسط ${fmt(t26.avgNetLoss)} ريال/شهر.`
     };
     return T[metric] || "";
   }
 
   function managementFocusFor(metric) {
-    const t26 = totals(2026, {}), t25 = totals(2025, {});
+    const t26 = totals(2026, {}), t25 = totals(2025, {}), cu = cur({}), pr = pri({});
     const mgrC = compare("managerialExpenses", {});
     const bwRev = bestWorst(2026, "revenue", {});
     const bwNl = bestWorst(2026, "netLoss", {});
     const salaryOp = salaryOpTotal({});
-    const julOpex = (FIN.years[2026].jul || {}).operatingExpenses;
-    const julMoM = mom(2026, "revenue", "jul");
+    const lastK = latestMonth(2026), prevK = monthOrder[monthOrder.indexOf(lastK) - 1];
+    const opexMinK = scopeAvailableMonths(2026, {}).reduce((a, k) => FIN.years[2026][k].operatingExpenses < FIN.years[2026][a].operatingExpenses ? k : a);
+    const minOpex = FIN.years[2026][opexMinK].operatingExpenses;
+    const lastMoM = mom(2026, "revenue", lastK);
     const F = {
       revenue: [
         `متابعة تقلب المبيعات: القمة في ${monthAr(bwRev.best.key)} (${fmt(bwRev.best.v)} ريال) والقاع في ${monthAr(bwRev.worst.key)} (${fmt(bwRev.worst.v)} ريال).`,
         `تثبيت مستوى ${monthAr(bwRev.best.key)} كأرضية شهرية جديدة بدلاً من الذروة الموسمية.`,
-        `مراقبة تراجع يوليو (${fmtPct(julMoM, { sign: true, digits: 1 })} شهرياً) لمنع انزلاق الربع الثالث.`
+        `مراقبة ${monthAr(lastK)} (${fmtPct(lastMoM, { sign: true, digits: 1 })} عن ${monthAr(prevK)}) للتأكد من استمرار الزخم.`,
       ],
       cogs: ["مراجعة أسعار المشتريات والموردين — كل نقطة خفض تنعكس مباشرة على الهامش.", "مقارنة تكلفة البضاعة بأسعار البيع لكل صنف (بيانات تفصيلية مطلوبة).", "ربط هامش المساهمة بسياسة التسعير."],
       grossProfit: [
-        `مراقبة الهامش شهرياً — التراجع من ${fmtPct(t25.grossMargin)} (2025) إلى ${fmtPct(t26.grossMargin)} (2026) اتجاه يجب إيقافه.`,
+        cu.grossMargin < pr.grossMargin ? `مراقبة الهامش شهرياً — التراجع من ${fmtPct(pr.grossMargin)} (2025، نفس الأشهر) إلى ${fmtPct(cu.grossMargin)} (2026) اتجاه يجب إيقافه.` : `تحسّن الهامش من ${fmtPct(pr.grossMargin)} إلى ${fmtPct(cu.grossMargin)} (نفس الأشهر) — يجب تثبيته ومراقبته شهرياً.`,
         "دراسة المنافسين ضمن خطة رفع الهامش إلى 52–55% (توصية تقرير الشركة).",
         "تحليل مزيج المنتجات: التركيز على الأصناف الأعلى هامشاً."
       ],
       operatingExpenses: [
         `خفض الرواتب التشغيلية من ${fmtPct(salaryOp / t26.revenue * 100)} إلى نطاق 30–35% من الإيرادات.`,
         "مراجعة البنود الثابتة (الإيجار 6,600 + Techflex 2,500 شهرياً).",
-        `حماية مكاسب يوليو: أدنى مصروفات تشغيلية في الفترة (${fmt(julOpex)} ريال).`
+        `حماية مكاسب ${monthAr(opexMinK)}: أدنى مصروفات تشغيلية في الفترة (${fmt(minOpex)} ريال).`
       ],
       managerialExpenses: [
         `تحقيق الارتفاع ${fmtPct(mgrC.variancePct, { sign: true, digits: 1 })}: أي بند يقف خلفه (خدمات أخرى؟ مصروفات حكومية؟).`,
@@ -1799,7 +1853,7 @@ const E = (function () {
         "فحص البنود غير المنتظمة قبل اعتمادها."
       ],
       netLoss: [
-        "تحديث خطة الوصول لنقطة التعادل (111,020 ريال/شهر).",
+        `تحديث خطة الوصول لنقطة التعادل (${fmt(FIN.breakEven.requiredSales)} ريال/شهر).`,
         `البناء على ${monthAr(bwNl.worst.key)}: أدنى خسارة شهرية (${fmt(bwNl.worst.v)} ريال) — الأقرب للتعادل حتى الآن.`,
         "قياس أثر كل بند توفير على النتيجة الشهرية."
       ]
@@ -1825,6 +1879,7 @@ const E = (function () {
     sum, totals, compare, monthly, mom, yoy,
     waterfall, opexStructure, mgrStructure,
     ratios, signals, insightFor, managementFocusFor, bestWorst,
+    cur, pri, sharedMonths, sharedText, lossMonthCount, latestMonth, extremeKey,
     salaryOpTotal,
     fs, fmtS, monthlySigned, SIGNED,
     monthsMeta: FIN.months
@@ -2579,10 +2634,9 @@ function scopeLabel(scope) {
 function scopeNote(scope) {
   const av26 = E.available(2026);
   const av25 = E.available(2025);
-  if (av26.length === 7 && av25.length === 7) return "";
-  const missing25 = E.monthOrder.filter(k => !av25.includes(k)).map(E.monthAr).join("، ");
-  const shared = E.monthOrder.filter(k => av26.includes(k) && av25.includes(k));
-  return `2026 متاحة حتى ${E.monthAr(av26[av26.length - 1])}. بيانات 2025 متاحة حتى ${E.monthAr(av25[av25.length - 1])} — ${missing25} بانتظار البيانات، والمقارنات مع 2025 تُحسب على الأشهر المشتركة (${shared.length} أشهر) وتتوسع تلقائياً عند اكتمالها.`;
+  const shared = E.sharedMonths(scope);
+  if (av26.length === av25.length && shared.length === av26.length) return "";
+  return `2026 متاحة حتى ${E.monthAr(av26[av26.length - 1])}. بيانات 2025 متاحة حتى ${E.monthAr(av25[av25.length - 1])} — كل المقارنات مع 2025 تُحسب على الأشهر المشتركة (${E.sharedText(scope)})، أما الإجماليات فتعرض كل الأشهر المتاحة لـ2026.`;
 }
 
 /* =================================================================
@@ -2614,7 +2668,7 @@ PAGES["exec-overview"] = {
         <div class="hero-card-label">صافي الخسارة — الفترة المختارة</div>
         <div class="hero-card-value neg"><span class="cnt-num">${E.fmt(t26.netLoss)}</span> <span>ريال قطري</span></div>
         <div class="hero-card-foot">
-          <span class="delta-chip ${nl.variancePct < 0 ? "pos" : "neg"}">${E.fmtPct(nl.variancePct, { sign: true, digits: 1 })} مقابل 2025 (كانت الخسارة ${E.fmt(nl.prior)} ريال)</span>
+          <span class="delta-chip ${nl.variancePct < 0 ? "pos" : "neg"}">${E.fmtPct(nl.variancePct, { sign: true, digits: 1 })} مقابل 2025 على نفس الأشهر (كانت الخسارة ${E.fmt(nl.prior)} ريال)</span>
           <span class="hero-card-sub">أعلى خسارة شهرية: ${E.monthAr(bwNl.best.key)} (${E.fmt(bwNl.best.v)} ريال) · أدنى: ${E.monthAr(bwNl.worst.key)} (${E.fmt(bwNl.worst.v)} ريال)</span>
         </div>
       </div>
@@ -2622,11 +2676,11 @@ PAGES["exec-overview"] = {
 
     <div class="kpi-row">
       ${UI.kpiPrimary({ label: "الإيرادات", value: E.fmtS("revenue", t26.revenue), note: "ريال قطري · " + scopeLabel(scope),
-        delta: `${E.fmtPct(r.variancePct, { sign: true, digits: 1 })} مقابل 2025 (${E.fmt(r.prior)} ريال)`, deltaTone: "pos",
+        delta: `${E.fmtPct(r.variancePct, { sign: true, digits: 1 })} مقابل 2025 على نفس الأشهر (${E.fmt(r.prior)} ريال)`, deltaTone: "pos",
         info: "",
         spark: CH.sparkline({ data: revSeries, color: CH.C.gold }), goto: "revenue" })}
       ${UI.kpiPrimary({ label: "الربح الإجمالي", value: E.fmtS("grossProfit", t26.grossProfit), note: "هامش " + E.fmtPct(t26.grossMargin),
-        delta: `${E.fmtPct(gp.variancePct, { sign: true, digits: 1 })} مقابل 2025 (${E.fmt(gp.prior)} ريال)`, deltaTone: "pos",
+        delta: `${E.fmtPct(gp.variancePct, { sign: true, digits: 1 })} مقابل 2025 على نفس الأشهر (${E.fmt(gp.prior)} ريال)`, deltaTone: "pos",
         info: "الربح المتبقي بعد خصم تكلفة البضاعة من المبيعات.",
         spark: CH.sparkline({ data: E.monthly(2026, "grossProfit", scope).map(x => x.value), color: CH.C.emerald }), goto: "gross-profit" })}
       ${UI.kpiPrimary({ label: "الخسارة التشغيلية", value: E.fmt(-t26.operatingProfit), note: "قبل المصروفات الإدارية", tone: "crit",
@@ -2634,18 +2688,18 @@ PAGES["exec-overview"] = {
         info: "نتيجة التشغيل بعد خصم مصروفات التشغيل — موجبة لأنها خسارة.",
         goto: "operating-expenses" })}
       ${UI.kpiPrimary({ label: "صافي الخسارة", value: E.fmt(t26.netLoss), note: "هامش " + E.fmtPct(t26.lossMargin), tone: "crit",
-        delta: `${E.fmtPct(nl.variancePct, { sign: true, digits: 1 })} مقابل 2025 (خسارة ${E.fmt(nl.prior)} ريال)`, deltaTone: "pos",
+        delta: `${E.fmtPct(nl.variancePct, { sign: true, digits: 1 })} مقابل 2025 على نفس الأشهر (خسارة ${E.fmt(nl.prior)} ريال)`, deltaTone: "pos",
         info: "النتيجة النهائية بعد خصم كل المصروفات — موجبة لأنها خسارة.",
         goto: "income-statement" })}
     </div>
 
     <div class="kpi-row-secondary">
-      ${UI.kpiSecondary({ label: "هامش الربح الإجمالي", value: E.fmtPct(t26.grossMargin), delta: E.fmtPct(t26.grossMargin - t25.grossMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.grossMargin) + ")", deltaTone: "neg", goto: "gross-margin", info: "نسبة الربح المتبقي من كل ريال مبيعات بعد تكلفة البضاعة." })}
-      ${UI.kpiSecondary({ label: "هامش صافي الربح", value: E.fmtPct(t26.netMargin), delta: E.fmtPct(t26.netMargin - t25.netMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.netMargin) + ")", deltaTone: "pos", goto: "net-margin", info: "النسبة المتبقية أو المفقودة من كل ريال مبيعات بعد كل المصروفات." })}
-      ${UI.kpiSecondary({ label: "نسبة تكلفة المبيعات", value: E.fmtPct(t26.cogsPct), delta: E.fmtPct(t26.cogsPct - t25.cogsPct, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.cogsPct) + ")", deltaTone: "neg", goto: "cost-of-sales", info: "كم يستهلك شراء البضاعة من كل ريال مبيعات." })}
-      ${UI.kpiSecondary({ label: "نسبة المصروفات التشغيلية", value: E.fmtPct(t26.opexRatio), delta: E.fmtPct(t26.opexRatio - t25.opexRatio, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.opexRatio) + ")", deltaTone: "pos", goto: "operating-expenses", info: "كم تستهلك مصروفات التشغيل من كل ريال مبيعات." })}
-      ${UI.kpiSecondary({ label: "متوسط الإيراد الشهري", value: E.fmtS("revenue", t26.avgRevenue), delta: E.fmtPct((t26.avgRevenue - t25.avgRevenue) / t25.avgRevenue * 100, { sign: true, digits: 1 }) + " (2025: " + E.fmtS("revenue", t25.avgRevenue) + ")", deltaTone: "pos", goto: "revenue-trend", info: "متوسط قيمة المبيعات في الشهر الواحد." })}
-      ${UI.kpiSecondary({ label: "متوسط الخسارة الشهرية", value: E.fmt(t26.avgNetLoss), delta: E.fmtPct((t26.avgNetLoss - t25.avgNetLoss) / Math.abs(t25.avgNetLoss) * 100, { sign: true, digits: 1 }) + " (2025: " + E.fmt(t25.avgNetLoss) + ")", deltaTone: "pos", goto: "monthly-performance", info: "متوسط الخسارة في الشهر الواحد." })}
+      ${UI.kpiSecondary({ label: "هامش الربح الإجمالي", value: E.fmtPct(t26.grossMargin), delta: E.fmtPct(E.cur(scope).grossMargin - E.pri(scope).grossMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.grossMargin) + ")", deltaTone: "neg", goto: "gross-margin", info: "نسبة الربح المتبقي من كل ريال مبيعات بعد تكلفة البضاعة." })}
+      ${UI.kpiSecondary({ label: "هامش صافي الربح", value: E.fmtPct(t26.netMargin), delta: E.fmtPct(E.cur(scope).netMargin - E.pri(scope).netMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.netMargin) + ")", deltaTone: "pos", goto: "net-margin", info: "النسبة المتبقية أو المفقودة من كل ريال مبيعات بعد كل المصروفات." })}
+      ${UI.kpiSecondary({ label: "نسبة تكلفة المبيعات", value: E.fmtPct(t26.cogsPct), delta: E.fmtPct(E.cur(scope).cogsPct - E.pri(scope).cogsPct, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.cogsPct) + ")", deltaTone: "neg", goto: "cost-of-sales", info: "كم يستهلك شراء البضاعة من كل ريال مبيعات." })}
+      ${UI.kpiSecondary({ label: "نسبة المصروفات التشغيلية", value: E.fmtPct(t26.opexRatio), delta: E.fmtPct(E.cur(scope).opexRatio - E.pri(scope).opexRatio, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.opexRatio) + ")", deltaTone: "pos", goto: "operating-expenses", info: "كم تستهلك مصروفات التشغيل من كل ريال مبيعات." })}
+      ${UI.kpiSecondary({ label: "متوسط الإيراد الشهري", value: E.fmtS("revenue", t26.avgRevenue), delta: E.fmtPct((E.cur(scope).avgRevenue - E.pri(scope).avgRevenue) / t25.avgRevenue * 100, { sign: true, digits: 1 }) + " (2025: " + E.fmtS("revenue", t25.avgRevenue) + ")", deltaTone: "pos", goto: "revenue-trend", info: "متوسط قيمة المبيعات في الشهر الواحد." })}
+      ${UI.kpiSecondary({ label: "متوسط الخسارة الشهرية", value: E.fmt(t26.avgNetLoss), delta: E.fmtPct((E.cur(scope).avgNetLoss - E.pri(scope).avgNetLoss) / Math.abs(t25.avgNetLoss) * 100, { sign: true, digits: 1 }) + " (2025: " + E.fmt(t25.avgNetLoss) + ")", deltaTone: "pos", goto: "monthly-performance", info: "متوسط الخسارة في الشهر الواحد." })}
     </div>
 
     <div class="grid-2">
@@ -2656,7 +2710,7 @@ PAGES["exec-overview"] = {
         ], valueLabels: false, yFmt: v => E.fmt(v),
           legend: [{ name: "الإيرادات", type: "box", color: CH.C.gold }, { name: "صافي الخسارة", type: "box", color: CH.C.burgundy }] })
       })}
-      ${UI.panel({ title: "مقارنة سريعة — 2026 مقابل 2025", badge: `<span class="badge">QAR</span>`, body: (() => {
+      ${UI.panel({ title: "مقارنة سريعة — 2026 مقابل 2025 على نفس الأشهر (" + E.sharedText(scope) + ")", badge: `<span class="badge">QAR</span>`, body: (() => {
         const rows = [
           { name: "الإيرادات", c: c("revenue") },
           { name: "الربح الإجمالي", c: c("grossProfit") },
@@ -2667,7 +2721,7 @@ PAGES["exec-overview"] = {
         return `<div class="cmp-mini">
           ${rows.map(x => `<div class="cmp-row">
             <span class="cmp-name">${x.name}</span>
-            <span class="cmp-vals"><b>${E.fmt(x.c.actual)}</b> <i>${E.fmt(x.c.prior)}</i></span>
+            <span class="cmp-vals"><b>${E.fmt(Math.abs(x.c.actual))}</b> <i>${E.fmt(Math.abs(x.c.prior))}</i></span>
             <span class="cmp-delta">${UI.deltaChip(x.c.variancePct, { downGood: x.name === "صافي الخسارة" || x.name.includes("مصروفات") })}</span>
           </div>`).join("")}
         </div>`;
@@ -2754,8 +2808,8 @@ PAGES["financial-performance"] = {
         ], yFmt: v => E.fmt(v),
         legend: [{ name: "2026", type: "box", color: CH.C.gold }, { name: "2025", type: "box", color: CH.C.navy2 }] })
     })}
-    ${UI.insight("تظهر المقارنة تحسناً في ثلاثة محاور: الإيرادات +" + E.fmtPct(c("revenue").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("revenue").prior) + " إلى " + E.fmt(c("revenue").actual) + " ريال)، والمصروفات التشغيلية " + E.fmtPct(c("operatingExpenses").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("operatingExpenses").prior) + " إلى " + E.fmt(c("operatingExpenses").actual) + " ريال)، وصافي الخسارة " + E.fmtPct(c("netLoss").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("netLoss").prior) + " إلى " + E.fmt(c("netLoss").actual) + " ريال). بالمقابل ارتفعت المصروفات الإدارية " + E.fmtPct(c("managerialExpenses").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("managerialExpenses").prior) + " إلى " + E.fmt(c("managerialExpenses").actual) + " ريال) وتراجع هامش الربح الإجمالي " + E.fmtPct(Math.abs(c("grossMargin").pctPts)) + " نقطة (من " + E.fmtPct(c("grossMargin").prior) + " إلى " + E.fmtPct(c("grossMargin").actual) + ") — وهما نقطتا المراقبة في الفترة القادمة.")}
-    ${UI.focus(["مقارنة 7 أشهر كاملة متاحة الآن (يناير–يوليو للسنتين) — كل النسب أعلاه محسوبة على هذا النطاق.", "مراجعة المصروفات الإدارية: بند «خدمات أخرى» و«مصروفات حكومية» خلف الارتفاع.", "متابعة هامش الربح الإجمالي شهرياً — التراجع " + E.fmtPct(Math.abs(c("grossMargin").pctPts), { digits: 1 }) + " نقطة يستهلك أثر نمو الإيرادات."])}
+    ${UI.insight("على نفس الأشهر (" + E.sharedText(scope) + "): الإيرادات " + E.fmtPct(c("revenue").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(Math.abs(c("revenue").prior)) + " إلى " + E.fmt(Math.abs(c("revenue").actual)) + " ريال)، والمصروفات التشغيلية " + E.fmtPct(c("operatingExpenses").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("operatingExpenses").prior) + " إلى " + E.fmt(c("operatingExpenses").actual) + " ريال) — أي أنها ارتفعت بنسبة أقل بكثير من الإيرادات، وصافي الخسارة " + E.fmtPct(c("netLoss").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("netLoss").prior) + " إلى " + E.fmt(c("netLoss").actual) + " ريال). بالمقابل ارتفعت المصروفات الإدارية " + E.fmtPct(c("managerialExpenses").variancePct, { sign: true, digits: 1 }) + " (من " + E.fmt(c("managerialExpenses").prior) + " إلى " + E.fmt(c("managerialExpenses").actual) + " ريال) وتراجع هامش الربح الإجمالي " + E.fmtPct(Math.abs(c("grossMargin").pctPts)) + " نقطة (من " + E.fmtPct(c("grossMargin").prior) + " إلى " + E.fmtPct(c("grossMargin").actual) + ") — وهما نقطتا المراقبة في الفترة القادمة.")}
+    ${UI.focus(["مقارنة على الأشهر المشتركة (" + E.sharedText(scope) + ") — كل نسب المقارنة محسوبة على هذا النطاق.", "مراجعة المصروفات الإدارية: بند «خدمات أخرى» و«مصروفات حكومية» خلف الارتفاع.", "متابعة هامش الربح الإجمالي شهرياً — التراجع " + E.fmtPct(Math.abs(c("grossMargin").pctPts), { digits: 1 }) + " نقطة يستهلك أثر نمو الإيرادات."])}
     `;
   }
 };
@@ -2769,38 +2823,39 @@ PAGES["management-summary"] = {
   render(el, ST) {
     const scope = ST.scope;
     const t26 = E.totals(2026, scope), t25 = E.totals(2025, scope);
+    const cu = E.cur(scope), pr = E.pri(scope);
     const salaryOp = E.opexStructure(2026, scope).find(x => x.key === "salaryOperating");
     const bwRev = E.bestWorst(2026, "revenue", scope);
     const mgrTop = E.mgrStructure(2026, scope).slice(0, 2);
     const stages = [
-      { name: "الإيرادات", en: "REVENUE", value: -t26.revenue, pct: "100% من الإيرادات", tone: "rev", page: "revenue",
-        what: `الإيرادات بلغت ${E.fmtS("revenue", t26.revenue)} ريال (${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })} مقابل 2025 — كانت ${E.fmtS("revenue", t25.revenue)} ريال).`,
+      { name: "الإيرادات", en: "REVENUE", value: t26.revenue, pct: "100% من الإيرادات", tone: "rev", page: "revenue",
+        what: `الإيرادات بلغت ${E.fmt(t26.revenue)} ريال منذ بداية السنة — على نفس الأشهر مع 2025 النمو ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(pr.revenue)} إلى ${E.fmt(cu.revenue)} ريال).`,
         why: "الإيراد هو المصدر الوحيد لتغطية كل التكاليف — كل نقطة نمو هنا تتسرب للنتيجة النهائية.",
         watch: `تذبذب ملحوظ: القمة ${E.monthAr(bwRev.best.key)} (${E.fmt(bwRev.best.v)} ريال) والقاع ${E.monthAr(bwRev.worst.key)} (${E.fmt(bwRev.worst.v)} ريال) — هل هو نمط أم استثناء؟` },
       { name: "تكلفة المبيعات", en: "COST OF SALES", value: t26.cogs, pct: E.fmtPct(t26.cogsPct), tone: "cost", page: "cost-of-sales",
-        what: `تكلفة البضاعة ${E.fmt(t26.cogs)} ريال أي ${E.fmtPct(t26.cogsPct)} من الإيرادات (كانت ${E.fmtPct(t25.cogsPct)} في 2025).`,
+        what: `تكلفة البضاعة ${E.fmt(t26.cogs)} ريال أي ${E.fmtPct(t26.cogsPct)} من الإيرادات (على نفس الأشهر كانت ${E.fmtPct(pr.cogsPct)} في 2025).`,
         why: "كل ارتفاع هنا يضغط هامش الربح مباشرة قبل أي مصروف آخر.",
-        watch: `ارتفاع النسبة من ${E.fmtPct(t25.cogsPct)} (2025) إلى ${E.fmtPct(t26.cogsPct)} — مراجعة أسعار المشتريات والموردين.` },
-      { name: "الربح الإجمالي", en: "GROSS PROFIT", value: -t26.grossProfit, pct: E.fmtPct(t26.grossMargin) + " هامش", tone: "gp", page: "gross-profit",
-        what: `الربح الإجمالي ${E.fmtS("grossProfit", t26.grossProfit)} ريال بهامش ${E.fmtPct(t26.grossMargin)} (2025: ${E.fmtS("grossProfit", t25.grossProfit)} ريال بهامش ${E.fmtPct(t25.grossMargin)}).`,
+        watch: `${cu.cogsPct > pr.cogsPct ? "ارتفاع" : "تحسن"} النسبة على نفس الأشهر من ${E.fmtPct(pr.cogsPct)} (2025) إلى ${E.fmtPct(cu.cogsPct)} — ${cu.cogsPct > pr.cogsPct ? "مراجعة أسعار المشتريات والموردين." : "الحفاظ على شروط الموردين."}` },
+      { name: "الربح الإجمالي", en: "GROSS PROFIT", value: t26.grossProfit, pct: E.fmtPct(t26.grossMargin) + " هامش", tone: "gp", page: "gross-profit",
+        what: `الربح الإجمالي ${E.fmt(t26.grossProfit)} ريال بهامش ${E.fmtPct(t26.grossMargin)} منذ بداية السنة (على نفس الأشهر مع 2025: هامش ${E.fmtPct(pr.grossMargin)}).`,
         why: "هذا هو «الوقود» المتاح لتغطية التشغيل — إن كفى غطى المصروفات، وإن نقص تحوّل للخسارة.",
-        watch: `الهامش تراجع من ${E.fmtPct(t25.grossMargin)} إلى ${E.fmtPct(t26.grossMargin)} — اتجاه يجب إيقافه.` },
+        watch: `الهامش ${cu.grossMargin < pr.grossMargin ? "تراجع" : "تحسن"} من ${E.fmtPct(pr.grossMargin)} إلى ${E.fmtPct(cu.grossMargin)} على نفس الأشهر — ${cu.grossMargin < pr.grossMargin ? "اتجاه يجب إيقافه." : "يجب تثبيته."}` },
       { name: "المصروفات التشغيلية", en: "OPERATING EXPENSES", value: t26.operatingExpenses, pct: E.fmtPct(t26.opexRatio) + " من الإيرادات", tone: "cost", page: "operating-expenses",
-        what: `المصروفات التشغيلية ${E.fmt(t26.operatingExpenses)} ريال (${E.fmtPct(E.compare("operatingExpenses", scope).variancePct, { sign: true, digits: 1 })} مقابل 2025 — كانت ${E.fmt(t25.operatingExpenses)} ريال).`,
+        what: `المصروفات التشغيلية ${E.fmt(t26.operatingExpenses)} ريال منذ بداية السنة (${E.fmtPct(E.compare("operatingExpenses", scope).variancePct, { sign: true, digits: 1 })} على نفس الأشهر مقابل 2025 — كانت ${E.fmt(pr.operatingExpenses)} ريال).`,
         why: `هي أكبر كتلة تكلفة في الشركة — وتفوق الربح الإجمالي بنسبة ${E.fmtPct(t26.operatingExpenses / t26.grossProfit * 100)}.`,
         watch: `الرواتب التشغيلية وحدها ${E.fmt(salaryOp ? salaryOp.value : 0)} ريال (${E.fmtPct((salaryOp ? salaryOp.value : 0) / t26.revenue * 100)} من الإيرادات) — المستهدف 30–35%.` },
       { name: "النتيجة التشغيلية", en: "OPERATING RESULT", value: -t26.operatingProfit, pct: "خسارة تشغيلية", tone: "bad", page: "operating-expenses",
         what: `النتيجة التشغيلية ${E.fmt(-t26.operatingProfit)} ريال (خسارة) — التشغيل اليومي يخسر قبل احتساب المصروفات الإدارية.`,
         why: "يعني أن النشاط الأساسي لا يغطي تكاليفه بعد — جوهر المشكلة المالية الحالية.",
-        watch: "نقطة العبور: رفع الإيرادات أو خفض التشغيل حتى تصل هذه النتيجة إلى صفر." },
+        watch: "نقطة التعادل: رفع الإيرادات أو خفض التشغيل حتى تصل هذه النتيجة إلى صفر." },
       { name: "المصروفات الإدارية", en: "OTHER EXPENSES", value: t26.managerialExpenses, pct: E.fmtPct(t26.mgrRatio) + " من الإيرادات", tone: "cost", page: "other-expenses",
-        what: `المصروفات الإدارية ${E.fmt(t26.managerialExpenses)} ريال — مرتفعة ${E.fmtPct(E.compare("managerialExpenses", scope).variancePct, { sign: true, digits: 1 })} عن 2025 (كانت ${E.fmt(t25.managerialExpenses)} ريال).`,
-        why: "هي المجموعة الوحيدة الصاعدة بينما تتقلص بقية المصروفات — تضيف ضغطاً على نتيجة خاسرة أصلاً.",
+        what: `المصروفات الإدارية ${E.fmt(t26.managerialExpenses)} ريال — ${E.fmtPct(E.compare("managerialExpenses", scope).variancePct, { sign: true, digits: 1 })} على نفس الأشهر (من ${E.fmt(pr.managerialExpenses)} إلى ${E.fmt(cu.managerialExpenses)} ريال).`,
+        why: "هي الأعلى ارتفاعاً بين المصروفات التشغيلية والإدارية — تضيف ضغطاً على نتيجة خاسرة أصلاً.",
         watch: `البندان الرئيسيان: ${mgrTop.map(m => `${m.ar} (${E.fmt(m.value)})`).join(" و")}.` },
       { name: "صافي الخسارة", en: "NET LOSS", value: t26.netLoss, pct: E.fmtPct(t26.lossMargin) + " من الإيرادات", tone: "bad", page: "income-statement",
-        what: `صافي الخسارة ${E.fmt(t26.netLoss)} ريال — بتحسن ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} عن 2025 (كانت الخسارة ${E.fmt(t25.netLoss)} ريال).`,
+        what: `صافي الخسارة ${E.fmt(t26.netLoss)} ريال منذ بداية السنة — على نفس الأشهر: ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} مقابل 2025 (من ${E.fmt(pr.netLoss)} إلى ${E.fmt(cu.netLoss)} ريال).`,
         why: `هو الرقم الذي يقرأه أصحاب القرار: الشركة تخسر ${(t26.netLoss / t26.revenue).toFixed(2)} ريال من كل ريال مبيعات.`,
-        watch: `كل الأشهر المتاحة خاسرة — المتوسط ${E.fmt(t26.avgNetLoss)} ريال شهرياً.` }
+        watch: `${E.lossMonthCount(scope)} من ${E.scopeAvailableMonths(2026, scope).length} أشهر خاسرة — متوسط الخسارة الشهرية ${E.fmt(t26.avgNetLoss)} ريال.` }
     ];
     const arrows = "↓";
     el.innerHTML = `
@@ -2824,8 +2879,8 @@ PAGES["management-summary"] = {
     </div>
     <div class="grid-2">
       ${UI.panel({ title: "الخلاصة التنفيذية", body: `
-        <p class="lead-p">خلال الفترة (${scopeLabel(scope)} 2026) بلغت الإيرادات المسجلة ${E.fmtS("revenue", t26.revenue)} ريال بنمو ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })}، وبلغ صافي الخسارة ${E.fmt(t26.netLoss)} ريال — مقابل خسارة ${E.fmt(E.compare("netLoss", scope).prior)} ريال على نفس الأشهر من 2025.</p>
-        <p class="lead-p">المصروفات الإدارية في ارتفاع، والرواتب التشغيلية تمثل ${E.fmtPct((salaryOp ? salaryOp.value : 0) / t26.revenue * 100)} من الإيرادات — لكن الربع الثاني أظهر تحسناً واضحاً: يوليو سجل أقل خسارة في السنة (3,288 ريال) بعد خفض كبير في المصروفات التشغيلية.</p>
+        <p class="lead-p">خلال ${scopeLabel(scope)} بلغت الإيرادات ${E.fmt(t26.revenue)} ريال، وعلى نفس الأشهر مع 2025 (${E.sharedText(scope)}) كان النمو ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(Math.abs(E.compare("revenue", scope).prior))} إلى ${E.fmt(Math.abs(E.compare("revenue", scope).actual))} ريال). صافي الخسارة ${E.fmt(t26.netLoss)} ريال منذ بداية السنة، وعلى نفس الأشهر تحسّن ${E.fmtPct(Math.abs(E.compare("netLoss", scope).variancePct), { digits: 1 })} (من ${E.fmt(E.compare("netLoss", scope).prior)} إلى ${E.fmt(E.compare("netLoss", scope).actual)} ريال).</p>
+        <p class="lead-p">المصروفات الإدارية في ارتفاع، والرواتب التشغيلية تمثل ${E.fmtPct((salaryOp ? salaryOp.value : 0) / t26.revenue * 100)} من الإيرادات — لكن ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].netLoss, scope))} سجل أقل خسارة في الفترة (${E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v)} ريال) وهو الأقرب لنقطة التعادل حتى الآن.</p>
       ` })}
       ${UI.panel({ title: "السيناريو المثالي — حسب تقرير الشركة", badge: `<span class="badge">IDEAL SCENARIO</span>`, body: `
         <div class="scenario">
@@ -2882,7 +2937,7 @@ PAGES["key-alerts"] = {
           </div>
         </section>`).join("")}
     </div>
-    ${UI.insight(`الملخص العام: إشارات إيجابية مؤكدة بالأرقام — نمو الإيرادات ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(E.totals(2025, scope).revenue)} إلى ${E.fmt(t26a.revenue)} ريال)، وتحسن الخسارة ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(t25a.netLoss)} إلى ${E.fmt(t26a.netLoss)} ريال)، وانخفاض نسبة المصروفات التشغيلية من ${E.fmtPct(t25a.opexRatio)} إلى ${E.fmtPct(t26a.opexRatio)} من الإيرادات — يقابلها إشارات حرجة أخطرها الرواتب التشغيلية (${E.fmt(salaryOpA)} ريال = ${E.fmtPct(salaryOpA / t26a.revenue * 100)} من الإيرادات و${E.fmtPct(salaryOpA / t26a.grossProfit * 100)} من الربح الإجمالي). التوصية ذات الأولوية: خفض كتلة الرواتب نحو 30–35% من الإيرادات مع تثبيت أسلوب ${E.monthAr(bwNlA.worst.key)} (أدنى خسارة ${E.fmt(bwNlA.worst.v)} ريال) — فهما معاً يحركان أغلب المؤشرات نحو التعادل.`)}
+    ${UI.insight(`الملخص العام: إشارات إيجابية على نفس الأشهر — نمو الإيرادات ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })}، وتحسن الخسارة ${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(E.compare("netLoss", scope).prior)} إلى ${E.fmt(E.compare("netLoss", scope).actual)} ريال)، ونسبة المصروفات التشغيلية من الإيرادات ${E.fmtPct(E.pri(scope).opexRatio)} (2025) إلى ${E.fmtPct(E.cur(scope).opexRatio)}. يقابلها إشارات حرجة أخطرها الرواتب التشغيلية (${E.fmt(salaryOpA)} ريال = ${E.fmtPct(salaryOpA / t26a.revenue * 100)} من الإيرادات و${E.fmtPct(salaryOpA / t26a.grossProfit * 100)} من الربح الإجمالي). التوصية ذات الأولوية: خفض كتلة الرواتب نحو 30–35% من الإيرادات مع تثبيت أسلوب ${E.monthAr(bwNlA.worst.key)} (أدنى خسارة ${E.fmt(bwNlA.worst.v)} ريال) — فهما معاً يحركان أغلب المؤشرات نحو التعادل.`)}
     `;
   }
 };
@@ -2932,12 +2987,13 @@ PAGES["income-statement"] = {
       cells.push({ html: `<b>${E.fmt(tot)}</b>`, cls: "num ytd" });
       return { cells };
     });
+    const t26 = E.totals(2026, scope);
     /* صف التباين 2026 vs 2025 (YTD) */
     const cmpSign = { revenue: -1, cogs: 1, grossProfit: -1, operatingExpenses: 1, managerialExpenses: 1, netLoss: 1 };
     const cmpNames = { revenue: "الإيرادات", cogs: "تكلفة المبيعات", grossProfit: "الربح الإجمالي", operatingExpenses: "المصروفات التشغيلية", managerialExpenses: "المصروفات الإدارية", netLoss: "صافي الخسارة" };
     const cmpRows = ["revenue", "cogs", "grossProfit", "operatingExpenses", "managerialExpenses", "netLoss"].map(k => {
-      const a = E.totals(2026, scope)[k];
-      const b = E.totals(2025, scope)[k];
+      const a = E.cur(scope)[k];
+      const b = E.pri(scope)[k];
       return { name: cmpNames[k], a, b, var: a - b, varPct: b !== 0 ? (a - b) / Math.abs(b) * 100 : null, sign: cmpSign[k] };
     });
     el.innerHTML = `
@@ -2951,7 +3007,7 @@ PAGES["income-statement"] = {
       <span class="toolbar-note">${scopeLabel(scope)} · ${FIN.meta.currency}</span>
     </div>
     ${UI.panel({ title: `قائمة الدخل — ${year}`, badge: `<span class="badge">QAR</span>`, body: UI.table({ heads, rightAlign: true, rows }) })}
-    ${UI.panel({ title: "التباين التراكمي — 2026 مقابل 2025", body: UI.table({
+    ${UI.panel({ title: "التباين — 2026 مقابل 2025 على نفس الأشهر (" + E.sharedText(scope) + ")", body: UI.table({
       heads: ["البند", "2026", "2025", "التباين", "نسبة التباين"], rightAlign: true,
       rows: cmpRows.map(r => {
         const downGood = ["المصروفات التشغيلية", "المصروفات الإدارية", "تكلفة المبيعات", "صافي الخسارة"].includes(r.name);
@@ -2966,7 +3022,7 @@ PAGES["income-statement"] = {
       })
     })})}
     <div class="note-line">* الإشارات: المبيعات والربح الإجمالي بعلامة سالبة، والمصروفات وصافي الخسارة بعلامة موجبة. <br> ** تكلفة مبيعات 2025 مشتقة حسابياً (الإيرادات − الربح الإجمالي).</div>
-    ${UI.insight(`على مدار السبعة أشهر (يناير–يوليو 2026) بلغت الإيرادات 590,570 ريال مقابل 462,996 ريال في 2025 (+27.6%)، وانخفض صافي الخسارة إلى 167,587 ريال (-21.3%). العبء الأكبر على النتيجة يأتي من المصروفات التشغيلية (404,440 ريال = 68.5% من الإيرادات) التي تفوق الربح الإجمالي بالكامل، وعلى رأسها الرواتب (220,415 ريال = 37.3% من الإيرادات). يوليو أثبت إمكانية الاقتراب من التعادل (خسارة 3,288 ريال فقط بعد خفض التشغيل إلى 39,604 ريال) — التوصية: تثبيت أسلوب يوليو وخفض الرواتب نحو 30–35% من الإيرادات.`)}
+    ${UI.insight(`منذ بداية السنة بلغت الإيرادات ${E.fmt(t26.revenue)} ريال، وعلى نفس الأشهر مع 2025 (${E.sharedText(scope)}) بلغت ${E.fmt(E.cur(scope).revenue)} مقابل ${E.fmt(E.pri(scope).revenue)} ريال (${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })}). صافي الخسارة ${E.fmt(t26.netLoss)} ريال منذ بداية السنة، وعلى نفس الأشهر ${E.fmt(E.cur(scope).netLoss)} مقابل ${E.fmt(E.pri(scope).netLoss)} (${E.fmtPct(E.compare("netLoss", scope).variancePct, { sign: true, digits: 1 })}). العبء الأكبر على النتيجة يأتي من المصروفات التشغيلية (${E.fmt(t26.operatingExpenses)} ريال = ${E.fmtPct(t26.opexRatio)} من الإيرادات) التي تفوق الربح الإجمالي بالكامل، وعلى رأسها الرواتب التشغيلية (${E.fmt((E.opexStructure(2026, scope).find(x => x.key === "salaryOperating") || { value: 0 }).value)} ريال). ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].netLoss, scope))} سجل أقل خسارة (${E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v)} ريال) — التوصية: تثبيت أسلوب الشهر الأفضل وخفض الرواتب نحو 30–35% من الإيرادات.`)}
     `;
   }
 };
@@ -2996,7 +3052,7 @@ PAGES["revenue"] = {
     el.innerHTML = `
     ${UI.sectionHead("06", "FINANCIAL STATEMENTS · القوائم المالية", "الإيرادات", "إجمالي المبيعات للفترة: " + E.fmtS("revenue", t26.revenue) + " ريال · " + scopeLabel(scope))}
     <div class="kpi-row">
-      ${UI.kpiPrimary({ label: "إجمالي الإيرادات", value: E.fmtS("revenue", t26.revenue), note: "ريال قطري", delta: E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 (" + E.fmtS("revenue", E.totals(2025, scope).revenue) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.gold }) })}
+      ${UI.kpiPrimary({ label: "إجمالي الإيرادات", value: E.fmtS("revenue", t26.revenue), note: "ريال قطري", delta: E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 على نفس الأشهر (" + E.fmtS("revenue", E.totals(2025, scope).revenue) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.gold }) })}
       ${UI.kpiPrimary({ label: "أعلى شهر", value: E.fmt(bw.best.v), note: E.monthAr(bw.best.key) + " (بالقيمة المطلقة)", delta: "الأفضل في الفترة", deltaTone: "pos" })}
       ${UI.kpiPrimary({ label: "أدنى شهر", value: E.fmt(bw.worst.v), note: E.monthAr(bw.worst.key) + " (بالقيمة المطلقة)", delta: E.fmtPct(E.mom(2026, "revenue", bw.worst.key), { sign: true, digits: 1 }) + " شهرياً", deltaTone: "neg" })}
       ${UI.kpiPrimary({ label: "متوسط شهري", value: E.fmtS("revenue", t26.avgRevenue), note: "على الأشهر المتاحة", delta: "2025: " + E.fmtS("revenue", E.totals(2025, scope).avgRevenue), deltaTone: "neutral" })}
@@ -3028,8 +3084,8 @@ PAGES["cost-of-sales"] = {
     el.innerHTML = `
     ${UI.sectionHead("07", "FINANCIAL STATEMENTS · القوائم المالية", "تكلفة المبيعات", "إجمالي " + E.fmt(t26.cogs) + " ريال · " + E.fmtPct(t26.cogsPct) + " من الإيرادات")}
     <div class="kpi-row">
-      ${UI.kpiPrimary({ label: "إجمالي التكلفة", value: E.fmt(t26.cogs), note: "ريال قطري", delta: E.fmtPct(E.compare("cogs", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 (" + E.fmt(E.totals(2025, scope).cogs) + " ريال)", deltaTone: "neg" })}
-      ${UI.kpiPrimary({ label: "نسبة التكلفة", value: E.fmtPct(t26.cogsPct), note: "من الإيرادات", delta: E.fmtPct(t26.cogsPct - t25.cogsPct, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.cogsPct) + ")", deltaTone: "neg" })}
+      ${UI.kpiPrimary({ label: "إجمالي التكلفة", value: E.fmt(t26.cogs), note: "ريال قطري", delta: E.fmtPct(E.compare("cogs", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 على نفس الأشهر (" + E.fmt(E.totals(2025, scope).cogs) + " ريال)", deltaTone: "neg" })}
+      ${UI.kpiPrimary({ label: "نسبة التكلفة", value: E.fmtPct(t26.cogsPct), note: "من الإيرادات", delta: E.fmtPct(E.cur(scope).cogsPct - E.pri(scope).cogsPct, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(t25.cogsPct) + ")", deltaTone: "neg" })}
       ${UI.kpiPrimary({ label: "2025 (سابق)", value: E.fmt(t25.cogs), note: "مشتقة حسابياً", delta: E.fmtPct(t25.cogsPct) + " من الإيرادات", deltaTone: "neutral" })}
     </div>
     ${UI.panel({ title: "التكلفة الشهرية + نسبة التكلفة", body: CH.comboChart({ labels, columns: [
@@ -3070,8 +3126,8 @@ PAGES["gross-profit"] = {
     el.innerHTML = `
     ${UI.sectionHead("08", "FINANCIAL STATEMENTS · القوائم المالية", "الربح الإجمالي", "إجمالي " + E.fmtS("grossProfit", t26.grossProfit) + " ريال · هامش " + E.fmtPct(t26.grossMargin))}
     <div class="kpi-row">
-      ${UI.kpiPrimary({ label: "إجمالي الربح", value: E.fmtS("grossProfit", t26.grossProfit), note: "ريال قطري", delta: E.fmtPct(E.compare("grossProfit", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 (" + E.fmtS("grossProfit", E.totals(2025, scope).grossProfit) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.emerald }) })}
-      ${UI.kpiPrimary({ label: "هامش الربح الإجمالي", value: E.fmtPct(t26.grossMargin), note: "من الإيرادات", delta: E.fmtPct(t26.grossMargin - E.totals(2025, scope).grossMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(E.totals(2025, scope).grossMargin) + ")", deltaTone: "neg" })}
+      ${UI.kpiPrimary({ label: "إجمالي الربح", value: E.fmtS("grossProfit", t26.grossProfit), note: "ريال قطري", delta: E.fmtPct(E.compare("grossProfit", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 على نفس الأشهر (" + E.fmtS("grossProfit", E.totals(2025, scope).grossProfit) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.emerald }) })}
+      ${UI.kpiPrimary({ label: "هامش الربح الإجمالي", value: E.fmtPct(t26.grossMargin), note: "من الإيرادات", delta: E.fmtPct(E.cur(scope).grossMargin - E.pri(scope).grossMargin, { sign: true, digits: 1 }) + " نقطة (2025: " + E.fmtPct(E.totals(2025, scope).grossMargin) + ")", deltaTone: "neg" })}
     </div>
     ${UI.panel({ title: "الربح الإجمالي + الهامش — شهرياً", body: CH.comboChart({ labels, columns: [
       { name: "الربح الإجمالي", data: s26.map(x => x.value), fill: "url(#gEmerald)" }
@@ -3110,7 +3166,7 @@ PAGES["operating-expenses"] = {
     el.innerHTML = `
     ${UI.sectionHead("09", "FINANCIAL STATEMENTS · القوائم المالية", "المصروفات التشغيلية", "إجمالي " + E.fmt(t26.operatingExpenses) + " ريال · " + E.fmtPct(t26.opexRatio) + " من الإيرادات")}
     <div class="kpi-row">
-      ${UI.kpiPrimary({ label: "إجمالي المصروفات التشغيلية", value: E.fmt(t26.operatingExpenses), note: "ريال قطري", delta: E.fmtPct(E.compare("operatingExpenses", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 (" + E.fmt(E.totals(2025, scope).operatingExpenses) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: sOpex.map(x => x.value), color: CH.C.burgundy }) })}
+      ${UI.kpiPrimary({ label: "إجمالي المصروفات التشغيلية", value: E.fmt(t26.operatingExpenses), note: "ريال قطري", delta: E.fmtPct(E.compare("operatingExpenses", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 على نفس الأشهر (" + E.fmt(E.totals(2025, scope).operatingExpenses) + " ريال)", deltaTone: "pos", spark: CH.sparkline({ data: sOpex.map(x => x.value), color: CH.C.burgundy }) })}
       ${UI.kpiPrimary({ label: "نسبة التشغيل من الإيرادات", value: E.fmtPct(t26.opexRatio), note: "كانت " + E.fmtPct(E.totals(2025, scope).opexRatio) + " في 2025", delta: "الربح الإجمالي لا يغطيها (" + E.fmtPct(t26.operatingExpenses / t26.grossProfit * 100) + ")", deltaTone: "neg" })}
       ${UI.kpiPrimary({ label: "الرواتب التشغيلية", value: E.fmt(salaryOp ? salaryOp.value : 0), note: "أكبر بند تكلفة", delta: E.fmtPct(salaryOp ? salaryOp.value / t26.revenue * 100 : 0) + " من الإيرادات", deltaTone: "neg" })}
     </div>
@@ -3151,7 +3207,7 @@ PAGES["other-expenses"] = {
     el.innerHTML = `
     ${UI.sectionHead("10", "FINANCIAL STATEMENTS · القوائم المالية", "المصروفات الأخرى — الإدارية", "إجمالي " + E.fmt(t26.managerialExpenses) + " ريال · " + E.fmtPct(t26.mgrRatio) + " من الإيرادات")}
     <div class="kpi-row">
-      ${UI.kpiPrimary({ label: "إجمالي المصروفات الإدارية", value: E.fmt(t26.managerialExpenses), note: "ريال قطري", delta: E.fmtPct(E.compare("managerialExpenses", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 (" + E.fmt(E.totals(2025, scope).managerialExpenses) + " ريال)", deltaTone: "neg", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.gold }) })}
+      ${UI.kpiPrimary({ label: "إجمالي المصروفات الإدارية", value: E.fmt(t26.managerialExpenses), note: "ريال قطري", delta: E.fmtPct(E.compare("managerialExpenses", scope).variancePct, { sign: true, digits: 1 }) + " مقابل 2025 على نفس الأشهر (" + E.fmt(E.totals(2025, scope).managerialExpenses) + " ريال)", deltaTone: "neg", spark: CH.sparkline({ data: s26.map(x => x.value), color: CH.C.gold }) })}
       ${UI.kpiPrimary({ label: "2025 (سابق)", value: E.fmt(E.totals(2025, scope).managerialExpenses), note: E.fmtPct(E.totals(2025, scope).mgrRatio) + " من الإيرادات", delta: "الاتجاه: ارتفاع", deltaTone: "neg" })}
     </div>
     <div class="grid-2">
@@ -3180,7 +3236,7 @@ PAGES["other-expenses"] = {
    ================================================================= */
 PAGES["monthly-performance"] = {
   num: "11", kicker: "PERFORMANCE · الأداء",
-  title: "الأداء الشهري", sub: "كل شهر في سطر — من يناير حتى يوليو (الناقص معلّق)",
+  title: "الأداء الشهري", sub: "كل شهر في سطر — من يناير حتى آخر شهر متاح (الناقص معلّق)",
   render(el, ST) {
     const scope = ST.scope;
     const ms = E.scopeAvailableMonths(2026, scope);
@@ -3190,10 +3246,10 @@ PAGES["monthly-performance"] = {
       const revMoM = E.mom(2026, "revenue", k);
       return { cells: [
         { html: `<b>${E.monthAr(k)}</b>${k === bwRev0.best.key ? ` <span class="badge-best">الأعلى إيراداً</span>` : (k === bwRev0.worst.key ? ` <span class="badge-worst">الأدنى إيراداً</span>` : "")}` },
-        { html: E.fmt(-d.revenue), cls: "num strong" },
+        { html: E.fmt(d.revenue), cls: "num strong" },
         { html: revMoM === null ? "—" : UI.deltaChip(revMoM), cls: "num" },
         { html: E.fmt(d.cogs), cls: "num dim" },
-        { html: E.fmt(-d.grossProfit), cls: "num" },
+        { html: E.fmt(d.grossProfit), cls: "num" },
         { html: E.fmt(d.operatingExpenses), cls: "num" },
         { html: E.fmt(d.managerialExpenses), cls: "num dim" },
         { html: `<b class="neg">${E.fmt(d.netLoss)}</b>`, cls: "num" }
@@ -3221,11 +3277,11 @@ PAGES["monthly-performance"] = {
         <ul class="facts">
           <li>أعلى إيراد (بالقيمة المطلقة): <b>${E.monthAr(bwRev.best.key)} ${E.fmt(bwRev.best.v)}</b> ر.ق.</li>
           <li>أقل خسارة: <b>${E.monthAr(bwNl.worst.key)} ${E.fmt(bwNl.worst.v)}</b> ر.ق — وأعلى خسارة: <b>${E.monthAr(bwNl.best.key)} ${E.fmt(bwNl.best.v)}</b> ر.ق.</li>
-          <li>المصروفات التشغيلية تتحرك بين ${E.fmt(opexMin)} و${E.fmt(opexMax)} ر.ق شهرياً — التذبذب واضح في الربع الثاني.</li>
+          <li>المصروفات التشغيلية تتحرك بين ${E.fmt(opexMin)} و${E.fmt(opexMax)} ر.ق شهرياً — أدناها في ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))} وأعلاها في ${E.monthAr(E.extremeKey(k => FIN.years[2026][k].operatingExpenses, scope))}.</li>
           <li>متوسط الإيراد ${E.fmt(t26.avgRevenue)} مقابل متوسط خسارة ${E.fmt(t26.avgNetLoss)} شهرياً.</li>
         </ul>` })}
     </div>
-    ${UI.insight("النمط الكامل للفترة: المبيعات متذبذبة (قمة مايو 102,897 ثم تراجع يوليو) بينما المصروفات انخفضت بوضوح في يوليو (39,604 ريال تشغيلية) — النتيجة الشهرية تتبع المبيعات من جهة والمصروفات من جهة أخرى، ويوليو أثبت أن الجمع بينهما يقرّب من التعادل.")}
+    ${UI.insight(`النمط الكامل للفترة: أعلى شهر إيرادات ${E.monthAr(bwRev.best.key)} (${E.fmt(bwRev.best.v)} ريال) وأدناه ${E.monthAr(bwRev.worst.key)} (${E.fmt(bwRev.worst.v)} ريال). أدنى مصروفات تشغيلية في ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))} (${E.fmt(opexMin)} ريال)، و${E.monthAr(bwNl.worst.key)} سجل أقل خسارة (${E.fmt(bwNl.worst.v)} ريال) — النتيجة الشهرية تتبع المبيعات من جهة والمصروفات من جهة أخرى، وأقرب الشهور للتعادل هي التي جمعت بين مبيعات جيدة ومصروفات تحت السيطرة.`)}
     `;
   }
 };
@@ -3247,20 +3303,20 @@ PAGES["revenue-trend"] = {
       const d26 = FIN.years[2026][k], d25 = FIN.years[2025][k];
       return { cells: [
         { html: `<b>${E.monthAr(k)}</b>` },
-        { html: E.fmt(-d26.revenue), cls: "num strong" },
-        { html: d25 ? E.fmt(-d25.revenue) : "—", cls: "num dim" },
-        { html: d25 ? E.fmt(d25.revenue - d26.revenue, { sign: true }) : "—", cls: `num ${d25 && d26.revenue > d25.revenue ? "pos" : "neg"}` },
+        { html: E.fmt(d26.revenue), cls: "num strong" },
+        { html: d25 ? E.fmt(d25.revenue) : "—", cls: "num dim" },
+        { html: d25 ? E.fmt(d26.revenue - d25.revenue, { sign: true }) : "—", cls: `num ${d25 && d26.revenue > d25.revenue ? "pos" : "neg"}` },
         { html: UI.deltaChip(E.yoy("revenue", k)), cls: "num" }
       ]};
     });
     el.innerHTML = `
-    ${UI.sectionHead("12", "PERFORMANCE · الأداء", "اتجاه الإيرادات", "كل نقطة نمو سنوي محسوبة من بيانات الشهرين الفعليين")}
+    ${UI.sectionHead("12", "PERFORMANCE · الأداء", "اتجاه الإيرادات", "كل نقطة نمو سنوي محسوبة من البيانات الفعلية لكل شهر متاح")}
     ${UI.panel({ title: "معدل النمو السنوي — شهرياً", body: CH.colChart({ labels, series: [
       { name: "النمو السنوي %", data: growth, fill: "url(#gEmerald)" }
     ], useSignColor: true, yFmt: v => E.fmtPct(v), valueLabels: true })})}
     ${UI.panel({ title: "المقارنة الشهرية", body: UI.table({ heads: ["الشهر", "2026", "2025", "الفرق (ر.ق)", "النمو %"], rightAlign: true, rows })})}
-    ${UI.insight("ستة من سبعة أشهر حققت نمواً سنوياً موجباً، بقيادة مايو +59.3% (من 64,601 إلى 102,897 ريال). مارس وحده تراجع -13.6% (من 70,042 إلى 60,499 ريال). إجمالي النمو السنوي للفترة الكاملة: +27.6% (من 462,996 إلى 590,570 ريال).")}
-    ${UI.focus(["تحليل مارس: هل هو انخفاض موسمي أم فقدان عملاء أم تأجيل طلبات؟", "قياس استدامة نمو مايو (+59.3% سنوياً: من 64,601 إلى 102,897 ريال).", "النمط السنوي الكامل (7 أشهر مقابل 7 أشهر) متاح الآن للمتابعة الشهرية."])}
+    ${UI.insight((() => { const g = ms.filter(k => FIN.years[2025][k]).map(k => ({ k, v: E.yoy("revenue", k) })); const pos = g.filter(x => x.v > 0).length; const hi = g.reduce((a, b) => b.v > a.v ? b : a); const lo = g.reduce((a, b) => b.v < a.v ? b : a); return `${pos} من ${g.length} أشهر مقارنة بنفس الشهر من 2025 حققت نمواً موجباً — أعلاها ${E.monthAr(hi.k)} (${E.fmtPct(hi.v, { sign: true, digits: 1 })}) وأدناها ${E.monthAr(lo.k)} (${E.fmtPct(lo.v, { sign: true, digits: 1 })}). إجمالي النمو على نفس الأشهر: ${E.fmtPct(E.compare("revenue", scope).variancePct, { sign: true, digits: 1 })} (من ${E.fmt(Math.abs(E.compare("revenue", scope).prior))} إلى ${E.fmt(Math.abs(E.compare("revenue", scope).actual))} ريال).`; })())}
+    ${UI.focus([`تحليل ${E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key)}: هل هو انخفاض موسمي أم فقدان عملاء أم تأجيل طلبات؟`, `قياس استدامة أعلى نمو شهري (${E.monthAr(E.extremeKey(k => E.yoy("revenue", k) || -Infinity, scope))}).`, `النمط السنوي على نفس الأشهر (${E.sharedText(scope)}) متاح الآن للمتابعة الشهرية.`])}
     `;
   }
 };
@@ -3290,6 +3346,8 @@ PAGES["gross-margin"] = {
       ]};
     });
     const t26 = E.totals(2026, scope), t25 = E.totals(2025, scope);
+    const cu = E.cur(scope), pr = E.pri(scope);
+    const gmMinK = E.extremeKey(k => -(FIN.years[2026][k].grossProfit / FIN.years[2026][k].revenue), scope), gmMaxK = E.extremeKey(k => FIN.years[2026][k].grossProfit / FIN.years[2026][k].revenue, scope);
     el.innerHTML = `
     ${UI.sectionHead("13", "PERFORMANCE · الأداء", "هامش الربح الإجمالي", "2026: " + E.fmtPct(t26.grossMargin) + " · 2025: " + E.fmtPct(t25.grossMargin))}
     ${UI.panel({ title: "منحنى الهامش — شهرياً", body: CH.lineChart({ labels, series: [
@@ -3298,7 +3356,7 @@ PAGES["gross-margin"] = {
     ], yFmt: v => E.fmtPct(v), yMin: 0, yMax: 80, valueLabels: true,
       legend: [{ name: "2026", type: "line", color: CH.C.gold }, { name: "2025", type: "line", color: CH.C.navy2 }] })})}
     ${UI.panel({ title: "التفاصيل الشهرية", body: UI.table({ heads: ["الشهر", "هامش 2026", "هامش 2025", "الفرق (نقطة)"], rightAlign: true, rows })})}
-    ${UI.insight(`الهامش في 2026 يتأرجح بين ${E.fmtPct(Math.min(...ms.map(k => FIN.years[2026][k].grossProfit / FIN.years[2026][k].revenue * 100)), { digits: 1 })} (فبراير) و${E.fmtPct(Math.max(...ms.map(k => FIN.years[2026][k].grossProfit / FIN.years[2026][k].revenue * 100)), { digits: 1 })} (يناير)، بينما كان 2025 أكثر استقراراً (46.6%–55.4%). متوسط الفترة ${E.fmtPct(t26.grossMargin)} أدنى من ${E.fmtPct(t25.grossMargin)} في 2025 — الفجوة ${E.fmtPct(Math.abs(t26.grossMargin - t25.grossMargin), { digits: 1 })} نقطة تكلف الشركة نحو ${E.fmt(Math.round(Math.abs(t26.grossMargin - t25.grossMargin) / 100 * t26.revenue))} ريال من الربح الإجمالي عند نفس مستوى الإيرادات.`)}
+    ${UI.insight(`الهامش في 2026 يتأرجح بين ${E.fmtPct(FIN.years[2026][gmMinK].grossProfit / FIN.years[2026][gmMinK].revenue * 100, { digits: 1 })} (${E.monthAr(gmMinK)}) و${E.fmtPct(FIN.years[2026][gmMaxK].grossProfit / FIN.years[2026][gmMaxK].revenue * 100, { digits: 1 })} (${E.monthAr(gmMaxK)}). على نفس الأشهر كان هامش 2025 ${E.fmtPct(pr.grossMargin)} مقابل ${E.fmtPct(cu.grossMargin)} في 2026 — الفرق ${E.fmtPct(Math.abs(cu.grossMargin - pr.grossMargin), { digits: 1 })} نقطة تكلّف الشركة نحو ${E.fmt(Math.round(Math.abs(cu.grossMargin - pr.grossMargin) / 100 * cu.revenue))} ريال من الربح الإجمالي عند نفس مستوى الإيرادات.`)}
     ${UI.focus(["مراجعة مزيج المنتجات: التركيز على الأصناف الأعلى هامشاً.", "دراسة المنافسين ضمن خطة رفع الهامش إلى 52–55%.", "تتبع الهامش شهرياً — أي شهر تحت 49% يستدعي تدخلاً فورياً."])}
     `;
   }
@@ -3330,6 +3388,8 @@ PAGES["net-margin"] = {
       ]};
     });
     const t26 = E.totals(2026, scope), t25 = E.totals(2025, scope);
+    const cu = E.cur(scope), pr = E.pri(scope);
+    const nmBestK = E.extremeKey(k => -FIN.years[2026][k].netLoss / FIN.years[2026][k].revenue, scope), nmWorstK = E.extremeKey(k => FIN.years[2026][k].netLoss / FIN.years[2026][k].revenue, scope);
     el.innerHTML = `
     ${UI.sectionHead("14", "PERFORMANCE · الأداء", "هامش صافي الربح", "2026: " + E.fmtPct(t26.netMargin) + " · 2025: " + E.fmtPct(t25.netMargin))}
     ${UI.panel({ title: "منحنى الهامش الصافي — شهرياً", body: CH.lineChart({ labels, series: [
@@ -3338,8 +3398,8 @@ PAGES["net-margin"] = {
     ], yFmt: v => E.fmtPct(v), yMin: -80, yMax: 0, valueLabels: true,
       legend: [{ name: "2026", type: "line", color: CH.C.burgundy }, { name: "2025", type: "line", color: CH.C.navy2 }] })})}
     ${UI.panel({ title: "التفاصيل الشهرية", body: UI.table({ heads: ["الشهر", "صافي 2026", "هامش 2026", "هامش 2025", "الفرق (نقطة)"], rightAlign: true, rows })})}
-    ${UI.insight(`الهامش الصافي سالب في كل شهر، لكن المنحنى يتحسن بوضوح: من -27.3% في يناير إلى -3.7% في يوليو (الأفضل في الفترة كلها)، بينما كان 2025 يتدهور شهرياً حتى -69.7% في أبريل. الفجوة بين المنحنيين تتسع لصالح 2026 — ويوليو أثبت أن الوصول لمنطقة الصفر أصبح قريباً.`)}
-    ${UI.focus(["الوصول لهامش صفري يتطلب إما إيرادات أعلى بنفس التكلفة أو تكلفة أقل بنفس الإيراد.", "كل نقطة خفض في المصروفات التشغيلية = نقطة تحسن مباشرة في هذا المنحنى.", "مراقبة استمرار مستوى يوليو (خسارة 3,288 ريال فقط) في الشهور القادمة — إن ثبت يتحول الربع الثالث."])}
+    ${UI.insight(`الهامش الصافي سالب في ${E.lossMonthCount(scope)} من ${E.scopeAvailableMonths(2026, scope).length} أشهر، لكن المنحنى يتحسن: أفضل شهر ${E.monthAr(nmBestK)} (${E.fmtPct(-FIN.years[2026][nmBestK].netLoss / FIN.years[2026][nmBestK].revenue * 100, { digits: 1 })}) وأسوأه ${E.monthAr(nmWorstK)} (${E.fmtPct(-FIN.years[2026][nmWorstK].netLoss / FIN.years[2026][nmWorstK].revenue * 100, { digits: 1 })}). على نفس الأشهر: هامش 2026 ${E.fmtPct(cu.netMargin, { digits: 1 })} مقابل ${E.fmtPct(pr.netMargin, { digits: 1 })} في 2025 — ${cu.netMargin > pr.netMargin ? "الفجوة تتسع لصالح 2026." : "الفجوة تضيق لغير صالح 2026."}`)}
+    ${UI.focus(["الوصول لهامش صفري يتطلب إما إيرادات أعلى بنفس التكلفة أو تكلفة أقل بنفس الإيراد.", "كل نقطة خفض في المصروفات التشغيلية = نقطة تحسن مباشرة في هذا المنحنى.", "مراقبة استمرار مستوى " + E.monthAr(E.bestWorst(2026, "netLoss", scope).worst.key) + " (خسارة " + E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v) + " ريال فقط) في الشهور القادمة — إن ثبت يتحسن المنحنى بشكل دائم."])}
     `;
   }
 };
@@ -3372,8 +3432,8 @@ PAGES["expense-trend"] = {
     ], line: { name: "خط 100% (نقطة الخسارة)", color: CH.C.burgundy, data: ratio.map(() => 100), dash: "4 4" },
       yFmtC: v => E.fmtPct(v), yFmtL: v => E.fmtPct(v), yMaxL: 140,
       legend: [{ name: "نسبة المصروفات", type: "box", color: CH.C.navy2 }, { name: "حد 100% — فوقه خسارة حتمية", type: "line", color: CH.C.burgundy }] })})}
-    ${UI.insight(`المصروفات التشغيلية تذبذبت في نطاق واسع هذا العام (39.6–72.6 ألف شهرياً) رغم تذبذب المبيعات — هيكل تكلفة جامد يجعل النتيجة رهينة الإيراد. نسبة المصروفات من الإيرادات هبطت من 81.5% في يناير إلى 51.1% في يوليو، بعد أن تجاوز مارس حاجز الـ100% (106.3%) — التحسن الحقيقي حدث في يوليو بفضل خفض التكلفة لا نمو المبيعات فقط.`)}
-    ${UI.focus(["المصروفات الإدارية في فبراير ومارس (8.3 و9.6 ألف) أعلى من بقية الشهور — فحص البنود الموسمية.", "استهداف نسبة مصروفات إجمالية أقل من 77.8% (المتوسط الحالي) بشكل دائم.", "يوليو أثبت أن كسر حاجز الـ100% ممكن — الحفاظ على أسلوب يوليو هو التحدي القادم."])}
+    ${UI.insight(`المصروفات التشغيلية تراوحت بين ${E.fmt(Math.min(...opex))} (${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))}) و${E.fmt(Math.max(...opex))} (${E.monthAr(E.extremeKey(k => FIN.years[2026][k].operatingExpenses, scope))}) شهرياً رغم تذبذب المبيعات — هيكل تكلفة جامد يجعل النتيجة رهينة الإيراد. نسبة إجمالي المصروفات من الإيرادات ${E.fmtPct(ratio[0])} في ${E.monthAr(ms[0])} و${E.fmtPct(ratio[ratio.length - 1])} في ${E.monthAr(ms[ms.length - 1])}، وتجاوزت 100% في: ${ms.filter((k, i) => ratio[i] > 100).map(E.monthAr).join("، ") || "لا يوجد شهر"}.`)}
+    ${UI.focus(["المصروفات الإدارية الأعلى: " + E.monthAr(E.extremeKey(k => FIN.years[2026][k].managerialExpenses, scope)) + " — فحص البنود الموسمية.", "استهداف نسبة مصروفات إجمالية أقل من " + E.fmtPct(E.totals(2026, scope).totalExpenseRatio) + " (المتوسط الحالي) بشكل دائم.", "الشهور التي بقيت فيها النسبة دون 100% (" + ms.filter((k, i) => ratio[i] <= 100).map(E.monthAr).join("، ") + ") هي المرجع — الحفاظ عليها هو التحدي القادم."])}
     `;
   }
 };
@@ -3412,9 +3472,9 @@ PAGES["cumulative-trend"] = {
     const rows = ms.map((k, i) => ({
       cells: [
         { html: `<b>${E.monthAr(k)}</b>` },
-        { html: E.fmt(-FIN.years[2026][k].revenue), cls: "num strong" },
-        { html: E.fmt(-rev26[i]), cls: "num" },
-        { html: rev25[i] === null ? "—" : E.fmt(-rev25[i]), cls: "num dim" },
+        { html: E.fmt(FIN.years[2026][k].revenue), cls: "num strong" },
+        { html: E.fmt(rev26[i]), cls: "num" },
+        { html: rev25[i] === null ? "—" : E.fmt(rev25[i]), cls: "num dim" },
         { html: E.fmt(FIN.years[2026][k].netLoss), cls: "num neg" },
         { html: E.fmt(nl26[i]), cls: "num neg" },
         { html: nl25[i] === null ? "—" : E.fmt(nl25[i]), cls: "num dim" }
@@ -3424,8 +3484,8 @@ PAGES["cumulative-trend"] = {
     ${UI.sectionHead("16", "PERFORMANCE · الأداء", "الاتجاه التراكمي", "المجموع التراكمي منذ بداية السنة — يُظهر الزخم الحقيقي لكل سنة · " + scopeLabel(scope))}
     <div class="grid-2">
       ${UI.panel({ title: "الإيرادات التراكمية — 2026 مقابل 2025", body: CH.lineChart({ labels, series: [
-        { name: "2026", color: CH.C.gold, data: rev26.map(v => v === null ? null : -v) },
-        { name: "2025", color: CH.C.navy2, data: rev25.map(v => v === null ? null : -v), dash: "5 4" }
+        { name: "2026", color: CH.C.gold, data: rev26 },
+        { name: "2025", color: CH.C.navy2, data: rev25, dash: "5 4" }
       ], yFmt: v => E.fmt(v), valueLabels: true,
         legend: [{ name: "2026", type: "line", color: CH.C.gold }, { name: "2025", type: "line", color: CH.C.navy2 }] })})}
       ${UI.panel({ title: "الخسارة التراكمية — 2026 مقابل 2025", body: CH.lineChart({ labels, series: [
@@ -3440,8 +3500,8 @@ PAGES["cumulative-trend"] = {
     ], yFmt: v => E.fmt(v) + "%", valueLabels: true,
       legend: [{ name: "2026", type: "box", color: CH.C.gold }, { name: "2025", type: "box", color: CH.C.navy2 }] })})}
     ${UI.panel({ title: "الجدول التراكمي الكامل — 2026", body: UI.table({ heads: ["الشهر", "إيراد الشهر", "تراكمي الإيرادات 2026", "تراكمي الإيرادات 2025", "خسارة الشهر", "تراكمي الخسارة 2026", "تراكمي الخسارة 2025"], rightAlign: true, rows })})}
-    ${UI.insight(`الفجوة التراكمية تتسع لصالح 2026: بدأت بفارق ${E.fmt(Math.abs(rev25[0] - rev26[0]))} ريال في يناير وانتهت بفارق ${E.fmt(Math.abs(rev26[ms.length - 1] - rev25[ms.length - 1]))} ريال في ${E.monthAr(ms[ms.length - 1])}. في الخسارة، تراكم 2025 وصل ${E.fmt(nl25[3])} ريال في أبريل وحده، بينما أغلقت 2026 الفترة عند ${E.fmt(nl26[ms.length - 1])} ريال — و${E.monthAr(ms[ms.length - 1])} أضاف 3,288 ريال فقط للتراكم (أبطأ شهر تراكماً في الفترة).`)}
-    ${UI.focus(["متابعة منحنى التراكم شهرياً — أي شهر يضيف أقل من 20,000 ريال للخسارة التراكمية يستحق الدراسة.", `مؤشر الموسمية فوق 100 = شهر أعلى من المتوسط — ${E.monthAr(maxSeasonMonth)} (2026) بلغ ${Math.round(maxSeason)}% وفهم موسميته يحمي التخطيط.`, "حماية اتجاه يوليو: أول شهر يدفع منحنى الخسارة التراكمية نحو الاستقرار عند نفس المستوى."])}
+    ${UI.insight(`على نفس الأشهر (يناير–${E.monthAr(E.latestMonth(2025))}): الإيرادات التراكمية 2026 ${E.fmt(rev26[ms.indexOf(E.latestMonth(2025))])} مقابل ${E.fmt(rev25[ms.indexOf(E.latestMonth(2025))])} ريال في 2025. الخسارة التراكمية 2026 ${E.fmt(nl26[ms.indexOf(E.latestMonth(2025))])} مقابل ${E.fmt(nl25[ms.indexOf(E.latestMonth(2025))])} ريال في 2025. أقل شهر إضافة للخسارة في 2026: ${E.monthAr(E.bestWorst(2026, "netLoss", scope).worst.key)} (${E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v)} ريال). وحتى ${E.monthAr(ms[ms.length - 1])} بلغت الخسارة التراكمية ${E.fmt(nl26[ms.length - 1])} ريال.`)}
+    ${UI.focus(["متابعة منحنى التراكم شهرياً — أي شهر يضيف أكثر من 20,000 ريال للخسارة التراكمية يستحق الدراسة.", `مؤشر الموسمية فوق 100 = شهر أعلى من المتوسط — ${E.monthAr(maxSeasonMonth)} (2026) بلغ ${Math.round(maxSeason)}% وفهم موسميته يحمي التخطيط.`, "حماية أسلوب " + E.monthAr(E.bestWorst(2026, "netLoss", scope).worst.key) + ": أقل شهر يضيف للخسارة التراكمية في الفترة."])}
     `;
   }
 };
@@ -3490,13 +3550,13 @@ PAGES["yoy-bridge"] = {
   title: "جسر المقارنة السنوي", sub: "أسباب تغيّر الخسارة بين 2025 و2026 — أثر كل بند على النتيجة",
   render(el, ST) {
     const scope = ST.scope;
-    const t26 = E.totals(2026, scope), t25 = E.totals(2025, scope);
+    const t26 = E.cur(scope), t25 = E.pri(scope);
     /* أثر كل بند على الخسارة: نمو الإيرادات يخفض الخسارة (سالب)،
        وارتفاع أي مصروف يرفعها (موجب) */
-    const dRev = t26.revenue - t25.revenue;
-    const dCogs = t26.cogs - t25.cogs;
-    const dOpex = t26.operatingExpenses - t25.operatingExpenses;
-    const dMgr = t26.managerialExpenses - t25.managerialExpenses;
+    const dRev = E.cur(scope).revenue - E.pri(scope).revenue;
+    const dCogs = E.cur(scope).cogs - E.pri(scope).cogs;
+    const dOpex = E.cur(scope).operatingExpenses - E.pri(scope).operatingExpenses;
+    const dMgr = E.cur(scope).managerialExpenses - E.pri(scope).managerialExpenses;
     const steps = [
       { label: "خسارة 2025", value: t25.netLoss, kind: "subtotal" },
       { label: "نمو الإيرادات", value: -dRev, kind: "rev" },
@@ -3512,11 +3572,11 @@ PAGES["yoy-bridge"] = {
       { name: "نمو الإيرادات", v: -dRev, note: `ارتفعت من ${E.fmt(t25.revenue)} إلى ${E.fmt(t26.revenue)} ريال — كل ريال نمو يخفض الخسارة مباشرة` },
       { name: "تكلفة المبيعات", v: dCogs, note: `ارتفعت من ${E.fmt(t25.cogs)} إلى ${E.fmt(t26.cogs)} ريال متتبعة نمو المبيعات` },
       { name: "مصروفات التشغيل", v: dOpex, note: `من ${E.fmt(t25.operatingExpenses)} إلى ${E.fmt(t26.operatingExpenses)} ريال — شبه ثابتة رغم النمو` },
-      { name: "مصروفات الإدارة", v: dMgr, note: `من ${E.fmt(t25.managerialExpenses)} إلى ${E.fmt(t26.managerialExpenses)} ريال — المجموعة الوحيدة الصاعدة بوضوح` },
+      { name: "مصروفات الإدارة", v: dMgr, note: `من ${E.fmt(t25.managerialExpenses)} إلى ${E.fmt(t26.managerialExpenses)} ريال — الأعلى ارتفاعاً بين مجموعات المصروفات` },
       { name: "خسارة 2026 (الناتج)", v: t26.netLoss, note: "مجموع المسار أعلاه — يطابق القائمة المعتمدة" }
     ];
     el.innerHTML = `
-    ${UI.sectionHead("18", "FINANCIAL ANALYSIS · التحليل المالي", "جسر المقارنة السنوي", "من خسارة 2025 إلى خسارة 2026 — أثر كل بند بالأرقام · " + scopeLabel(scope))}
+    ${UI.sectionHead("18", "FINANCIAL ANALYSIS · التحليل المالي", "جسر المقارنة السنوي", "من خسارة 2025 إلى خسارة 2026 على نفس الأشهر (" + E.sharedText(scope) + ")")}
     ${UI.panel({ title: "جسر الخسارة — 2025 إلى 2026", badge: `<span class="badge">QAR</span>`, body:
       CH.waterfallChart({ steps, fmt: v => E.fmt(v, { sign: true }), height: 360, stackAll: true, zeroBased: true,
         legend: [
@@ -3531,7 +3591,7 @@ PAGES["yoy-bridge"] = {
       { html: `<b class="${r.v < 0 ? "pos" : "neg"}">${E.fmt(r.v, { sign: true })}</b>`, cls: "num" },
       { html: r.note }
     ] })) })})}
-    <div class="note-line">* القراءة: الأثر السالب يخفض الخسارة (تحسّن)، والأثر الموجب يرفعها. ** التحقق المحاسبي: ${E.fmt(t25.netLoss)} + (${E.fmt(-dRev, { sign: true })}) + (${E.fmt(dCogs, { sign: true })}) + (${E.fmt(dOpex, { sign: true })}) + (${E.fmt(dMgr, { sign: true })}) = ${E.fmt(checkSum)} — يطابق خسارة 2026 (${E.fmt(t26.netLoss)}).</div>
+    <div class="note-line">* القراءة: الأثر السالب يخفض الخسارة (تحسّن)، والأثر الموجب يرفعها. ** التحقق المحاسبي: ${E.fmt(t25.netLoss)} + (${E.fmt(-dRev, { sign: true })}) + (${E.fmt(dCogs, { sign: true })}) + (${E.fmt(dOpex, { sign: true })}) + (${E.fmt(dMgr, { sign: true })}) = ${E.fmt(checkSum)} — ${checkSum === t26.netLoss ? "يطابق" : "يفرق " + E.fmt(Math.abs(checkSum - t26.netLoss)) + " ريال عن"} خسارة 2026 (${E.fmt(t26.netLoss)}) بسبب تقريب أرقام المصدر.</div>
     ${UI.insight(`التحسن الإجمالي ${E.fmt(t25.netLoss - t26.netLoss)} ريال لم يأتِ من خفض المصروفات وحدها: نمو الإيرادات ساهم بأثر ${E.fmt(-(-dRev))} ريال إيجابي، وابتلعته جزئياً تكلفة المبيعات الإضافية (${E.fmt(dCogs)} ريال) وصعود المصروفات الإدارية (${E.fmt(dMgr)} ريال). الرسالة الإدارية: النمو وحده لا يكفي — كل ريال نمو إيرادات يجب ألا يصاحبه ريال نمو تكلفة بنفس السرعة.`)}
     ${UI.focus(["كبح نمو تكلفة المبيعات: كل نقطة خفض في نسبة التكلفة تحمي أثر النمو.", "إيقاف صعود المصروفات الإدارية — المجموعة التي تعمل ضد الاتجاه العام.", "البناء على جمود المصروفات التشغيلية: استمرار ضبطها مع نمو الإيرادات يضاعف التحسن تلقائياً."])}
     `;
@@ -3632,7 +3692,7 @@ PAGES["operating-efficiency"] = {
         const cMin = Math.min(...cVals), cMax = Math.max(...cVals);
         const revSwing = (rMax - rMin) / rMin * 100, costSwing = (cMax - cMin) / cMin * 100;
         return E.fmtPct(costSwing) + " مقابل " + E.fmtPct(revSwing);
-      }, note: "تذبذب المبيعات بين مارس ومايو " + E.fmtPct((Math.max(...ms.map(k => FIN.years[2026][k].revenue)) - Math.min(...ms.map(k => FIN.years[2026][k].revenue))) / Math.min(...ms.map(k => FIN.years[2026][k].revenue)) * 100) + " بينما تحركت المصروفات التشغيلية " + E.fmtPct((Math.max(...ms.map(k => FIN.years[2026][k].operatingExpenses)) - Math.min(...ms.map(k => FIN.years[2026][k].operatingExpenses))) / Math.min(...ms.map(k => FIN.years[2026][k].operatingExpenses)) * 100) + " فقط — جامدة لا تتبع المبيعات", tone: "warn" }
+      }, note: "تذبذب المبيعات بين " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " و" + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) + " " + E.fmtPct((Math.max(...ms.map(k => FIN.years[2026][k].revenue)) - Math.min(...ms.map(k => FIN.years[2026][k].revenue))) / Math.min(...ms.map(k => FIN.years[2026][k].revenue)) * 100) + " بينما تحركت المصروفات التشغيلية " + E.fmtPct((Math.max(...ms.map(k => FIN.years[2026][k].operatingExpenses)) - Math.min(...ms.map(k => FIN.years[2026][k].operatingExpenses))) / Math.min(...ms.map(k => FIN.years[2026][k].operatingExpenses)) * 100) + " فقط — جامدة لا تتبع المبيعات", tone: "warn" }
     ];
     el.innerHTML = `
     ${UI.sectionHead("21", "FINANCIAL ANALYSIS · التحليل المالي", "الكفاءة التشغيلية", "مؤشرات إنتاجية التكلفة — مبنية من بيانات " + scopeLabel(scope))}
@@ -3645,7 +3705,7 @@ PAGES["operating-efficiency"] = {
           <p>${e.note}</p>
         </div>`).join("")}
     </div>
-    ${UI.insight("الصورة الجوهرية للكفاءة: المصروفات التشغيلية جامدة بينما المبيعات متقلبة — لذلك تتحول أي هزة مبيعات فوراً إلى خسارة مضاعفة، وأي انتعاش (مثل مايو) يتحول فوراً إلى تحسن كبير. يوليو كان الاستثناء الوحيد: خفض التشغيل 39,604 ريال صنع أفضل نتيجة في الفترة — الدليل العملي أن المعالجة الجذرية هي تحويل جزء من التكلفة من ثابت إلى متغير.")}
+    ${UI.insight(`الصورة الجوهرية للكفاءة: المصروفات التشغيلية جامدة بينما المبيعات متقلبة — لذلك تتحول أي هزة مبيعات إلى تغير كبير في النتيجة. أفضل شهر بالنتيجة ${E.monthAr(E.bestWorst(2026, "netLoss", scope).worst.key)} (خسارة ${E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v)} ريال) سجّل مصروفات تشغيلية ${E.fmt(FIN.years[2026][E.bestWorst(2026, "netLoss", scope).worst.key].operatingExpenses)} ريال وإيرادات ${E.fmt(FIN.years[2026][E.bestWorst(2026, "netLoss", scope).worst.key].revenue)} ريال — دليل عملي على أن التوازن بين المبيعات والتكلفة يقرّب من التعادل، والمعالجة الجذرية تبقى تحويل جزء من التكلفة من ثابت إلى متغير.`)}
     `;
   }
 };
@@ -3679,15 +3739,15 @@ PAGES["break-even"] = {
     ${UI.sectionHead("22", "FINANCIAL ANALYSIS · التحليل المالي", "نقطة التعادل", "مبيعات التعادل المعتمدة في تقرير الشركة: " + E.fmt(be.requiredSales) + " ريال/شهر")}
     <div class="kpi-row">
       ${UI.kpiPrimary({ label: "مبيعات التعادل المطلوبة", value: E.fmt(be.requiredSales), note: "ريال/شهر", delta: "حسب تقرير الشركة", deltaTone: "neutral", info: "مستوى المبيعات الشهرية الذي تتساوى عنده الإيرادات مع التكاليف." })}
-      ${UI.kpiPrimary({ label: "المبيعات الفعلية المتوسطة", value: E.fmt(be.actualAvgSales), note: "ريال/شهر", delta: "فجوة " + E.fmt(be.requiredSales - be.actualAvgSales) + " ريال", deltaTone: "neg" })}
-      ${UI.kpiPrimary({ label: "الزيادة المطلوبة", value: "+" + be.requiredIncreasePct + "%", note: "للوصول للتعادل", delta: "هامش الربح الإجمالي " + E.fmtPct(be.grossMarginPct), deltaTone: "warn" })}
-      ${UI.kpiPrimary({ label: "المصروفات الشهرية المتوسطة", value: E.fmt(be.avgMonthlyExpenses), note: be.avgMonthlyExpensesPct + "% من متوسط المبيعات", delta: "المصروفات الثابتة: " + E.fmt(be.fixedMonthly.total) + "/شهر", deltaTone: "neutral" })}
+      ${UI.kpiPrimary({ label: "المبيعات الفعلية المتوسطة", value: E.fmt(Math.round(t26.avgRevenue)), note: "ريال/شهر", delta: "فجوة " + E.fmt(be.requiredSales - Math.round(t26.avgRevenue)) + " ريال", deltaTone: "neg" })}
+      ${UI.kpiPrimary({ label: "الزيادة المطلوبة", value: "+" + (Math.round((be.requiredSales - Math.round(t26.avgRevenue)) / Math.round(t26.avgRevenue) * 1000) / 10) + "%", note: "للوصول للتعادل", delta: "هامش الربح الإجمالي الفعلي " + E.fmtPct(t26.grossMargin), deltaTone: "warn" })}
+      ${UI.kpiPrimary({ label: "المصروفات الشهرية المتوسطة", value: E.fmt(Math.round(t26.totalExpenses / t26.monthCount)), note: (Math.round(t26.totalExpenses / t26.monthCount / t26.avgRevenue * 1000) / 10) + "% من متوسط المبيعات", delta: "المصروفات الثابتة: " + E.fmt(be.fixedMonthly.total) + "/شهر", deltaTone: "neutral" })}
     </div>
     ${UI.panel({ title: "خريطة التعادل — شهرياً", body: CH.breakEvenChart({
-      maxX, maxY, beX: beComputed, actualX: be.actualAvgSales,
+      maxX, maxY, beX: beComputed, actualX: Math.round(t26.avgRevenue),
       revenuePoints: revPts, costPoints: costPts, fixedPoints: fixedPts,
       markers: [{ x: be.requiredSales, label: "تعادل الشركة المعتمد " + E.fmt(be.requiredSales), color: CH.C.blue, align: "right" }],
-      fmt: v => E.fmt(v), beLabel: "التعادل المحسوب " + E.fmt(beComputed), actualLabel: "الفعلي " + E.fmt(be.actualAvgSales), xLabel: "المبيعات الشهرية (ريال قطري)",
+      fmt: v => E.fmt(v), beLabel: "التعادل المحسوب " + E.fmt(beComputed), actualLabel: "الفعلي " + E.fmt(Math.round(t26.avgRevenue)), xLabel: "المبيعات الشهرية (ريال قطري)",
       legend: [
         { name: "خط المبيعات (الإيراد)", type: "line", color: CH.C.gold },
         { name: "خط التكلفة الإجمالية", type: "line", color: CH.C.burgundy },
@@ -3696,13 +3756,13 @@ PAGES["break-even"] = {
     <div class="grid-2">
       ${UI.panel({ title: "التعادل المحسوب من البيانات الفعلية", body: `
         <ul class="facts">
-          <li><b>تعادل التكاليف الثابتة فقط</b> (إيجار 6,600 + Techflex 2,500 = ${E.fmt(be.fixedMonthly.total)}/شهر) بهامش ${E.fmtPct(t26.grossMargin)}: ${E.fmt(be.fixedMonthly.total)} ÷ ${E.fmtPct(gmExact, { digits: 1 })} = <b>${E.fmt(Math.round(be.fixedMonthly.total / gmExact * 100))} ريال/شهر</b></li>
-          <li><b>تعادل كل المصروفات الجارية</b> (متوسط ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))}/شهر) بهامش ${E.fmtPct(gmExact, { digits: 1 })}: ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))} ÷ ${E.fmtPct(gmExact, { digits: 1 })} = <b>${E.fmt(Math.round(t26.totalExpenses / t26.monthCount / gmExact * 100))} ريال/شهر</b></li>
-          <li class="dim">هذان السيناريوهان محسوبان من الأرقام الفعلية للفترة الكاملة (7 أشهر)؛ الرقم المعتمد في تقرير الشركة هو ${E.fmt(be.requiredSales)} ريال/شهر.</li>
+          <li><b>تعادل التكاليف الثابتة فقط</b> (إيجار 6,600 + Techflex 2,500 = ${E.fmt(be.fixedMonthly.total)}/شهر) بهامش ${E.fmtPct(t26.grossMargin)}: ${E.fmt(be.fixedMonthly.total)} ÷ ${E.fmtPct(gmExact, { digits: 2 })} = <b>${E.fmt(Math.round(be.fixedMonthly.total / gmExact * 100))} ريال/شهر</b></li>
+          <li><b>تعادل كل المصروفات الجارية</b> (متوسط ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))}/شهر) بهامش ${E.fmtPct(gmExact, { digits: 2 })}: ${E.fmt(Math.round(t26.totalExpenses / t26.monthCount))} ÷ ${E.fmtPct(gmExact, { digits: 2 })} = <b>${E.fmt(Math.round(t26.totalExpenses / t26.monthCount / gmExact * 100))} ريال/شهر</b></li>
+          <li class="dim">هذان السيناريوهان محسوبان من الأرقام الفعلية للفترة الكاملة (${t26.monthCount} أشهر)؛ الرقم المعتمد في تقرير الشركة هو ${E.fmt(be.requiredSales)} ريال/شهر.</li>
         </ul>` })}
       ${UI.panel({ title: "قراءة الفجوة", body: `
-        <p class="lead-p">الفجوة الحالية بين المبيعات الفعلية ونقطة التعادل: <b>${E.fmt(be.requiredSales - be.actualAvgSales)} ريال شهرياً (+${be.requiredIncreasePct}%)</b> — وفق أرقام تقرير الشركة المعتمدة.</p>
-        <p class="lead-p">منظور الربع الثاني: ${E.monthAr(bwRev.best.key)} حقق أعلى إيراد (${E.fmt(bwRev.best.v)} ريال = ${E.fmtPct(bwRev.best.v / be.requiredSales * 100)} من هدف التعادل)، و${E.monthAr(bwNl.worst.key)} سجل أقل خسارة (${E.fmt(bwNl.worst.v)} ريال) — مؤشر أن السيطرة على المصروفات تقرّب من التعادل.</p>` })}
+        <p class="lead-p">الفجوة الحالية بين المبيعات الفعلية ونقطة التعادل: <b>${E.fmt(be.requiredSales - Math.round(t26.avgRevenue))} ريال شهرياً (+${(Math.round((be.requiredSales - Math.round(t26.avgRevenue)) / Math.round(t26.avgRevenue) * 1000) / 10)}%)</b> — وفق أرقام تقرير الشركة المعتمدة.</p>
+        <p class="lead-p">منظور الفترة: ${E.monthAr(bwRev.best.key)} حقق أعلى إيراد (${E.fmt(bwRev.best.v)} ريال = ${E.fmtPct(bwRev.best.v / be.requiredSales * 100)} من هدف التعادل)، و${E.monthAr(bwNl.worst.key)} سجل أقل خسارة (${E.fmt(bwNl.worst.v)} ريال) — مؤشر أن السيطرة على المصروفات تقرّب من التعادل.</p>` })}
     </div>
     ${UI.insight(`نقطة التعادل ليست رقماً ثابتاً — بل تتغير مع كل قرار: خفض الإيجار أو Techflex يخفض التكاليف الثابتة مباشرة، ورفع الهامش إلى 52–55% يخفض المطلوب من المبيعات. حسب أرقام الفترة الفعلية، التعادل المحسوب ${E.fmt(beComputed)} ريال شهرياً، والمتوسط الفعلي ${E.fmt(Math.round(t26.avgRevenue))} ريال — أي أن الشركة تحتاج ${E.fmt(beComputed - Math.round(t26.avgRevenue))} ريال إضافية شهرياً لبلوغه. التوصية: السعي للمستوى المعتمد في تقرير الشركة (${E.fmt(be.requiredSales)} ريال/شهر) من خلال مزيج زيادة المبيعات وخفض المصروفات.`)}
     `;
@@ -3729,13 +3789,13 @@ PAGES["contribution-margin"] = {
     const cmPct = t26.grossMargin;
     const fixed = get(opStruct, "rent") + get(opStruct, "techflex");
     const labels = ms.map(E.monthAr);
-    const cmMonthly = ms.map(k => -FIN.years[2026][k].grossProfit);
+    const cmMonthly = ms.map(k => FIN.years[2026][k].grossProfit);
     const cmPctMonthly = ms.map(k => FIN.years[2026][k].grossProfit / FIN.years[2026][k].revenue * 100);
     el.innerHTML = `
     ${UI.sectionHead("23", "FINANCIAL ANALYSIS · التحليل المالي", "هامش المساهمة", "المساهمة الشهرية (" + E.fmt(Math.round(cm / t26.monthCount)) + " ريال) مقابل التكاليف الثابتة والرواتب — أين تقف الفجوة؟")}
     <div class="kpi-row">
       ${UI.kpiPrimary({ label: "هامش المساهمة", value: E.fmtPct(cmPct), note: "الربح الإجمالي ÷ الإيرادات", delta: "2025: " + E.fmtPct(E.totals(2025, scope).grossMargin), deltaTone: "neg", info: "ما يتبقى من كل ريال مبيعات بعد التكلفة المتغيرة (البضاعة) لتغطية التكاليف الثابتة وتحقيق الربح." })}
-      ${UI.kpiPrimary({ label: "المساهمة الإجمالية", value: E.fmt(-cm), note: "ريال للفترة", delta: E.fmt(-cm / t26.monthCount) + " ريال/شهر", deltaTone: "neutral" })}
+      ${UI.kpiPrimary({ label: "المساهمة الإجمالية", value: E.fmt(cm), note: "ريال للفترة", delta: E.fmt(cm / t26.monthCount) + " ريال/شهر", deltaTone: "neutral" })}
       ${UI.kpiPrimary({ label: "التكاليف الثابتة المعروفة", value: E.fmt(fixed), note: "إيجار + Techflex (للفترة)", delta: "9,100 ريال/شهر", deltaTone: "neutral", info: "البنود الثابتة المؤكدة في تقرير الشركة: الإيجار وTechflex Marketing." })}
       ${UI.kpiPrimary({ label: "الرواتب (شبه ثابتة)", value: E.fmt(totalSalary), note: "تشغيلية + إدارية", delta: E.fmt(totalSalary / t26.monthCount) + " ريال/شهر", deltaTone: "neg" })}
     </div>
@@ -3744,7 +3804,7 @@ PAGES["contribution-margin"] = {
     ], line: { name: "هامش المساهمة %", color: CH.C.gold, data: cmPctMonthly },
       yFmtC: v => E.fmt(v), yFmtL: v => E.fmtPct(v), yMaxL: 100,
       legend: [{ name: "المساهمة (ر.ق)", type: "box", color: CH.C.emerald }, { name: "هامش المساهمة %", type: "line", color: CH.C.gold }] })})}
-    ${UI.insight("هامش المساهمة " + E.fmtPct(cmPct) + " يعني أن كل 1,000 ريال مبيعات إضافية تولّد نحو " + E.fmt(Math.round(cmPct / 100 * 1000)) + " ريال مساهمة قبل التكاليف الثابتة. المساهمة الشهرية (" + E.fmt(Math.round(cm / t26.monthCount)) + " ريال بالقيمة المطلقة) تغطي الإيجار وTechflex (9,100/شهر) لكنها لا تغطي كتلة الرواتب شبه الثابتة (" + E.fmt(Math.round(totalSalary / t26.monthCount)) + "/شهر) — وهذا جوهر الفجوة نحو التعادل.")}
+    ${UI.insight("هامش المساهمة " + E.fmtPct(cmPct) + " يعني أن كل 1,000 ريال مبيعات إضافية تولّد نحو " + E.fmt(Math.round(cmPct / 100 * 1000)) + " ريال مساهمة قبل التكاليف الثابتة. المساهمة الشهرية (" + E.fmt(Math.round(cm / t26.monthCount)) + " ريال) تغطي الإيجار وTechflex (" + E.fmt(Math.round(fixed / t26.monthCount)) + "/شهر) والرواتب شبه الثابتة (" + E.fmt(Math.round(totalSalary / t26.monthCount)) + "/شهر)" + (cm - fixed - totalSalary >= 0 ? "، ويتبقى " + E.fmt(Math.round((cm - fixed - totalSalary) / t26.monthCount)) + " ريال شهرياً فقط لتغطية بقية المصروفات التشغيلية والإدارية" : "، ولا يتبقى شيء لبقية المصروفات — عجز شهري " + E.fmt(Math.round((fixed + totalSalary - cm) / t26.monthCount))) + " — وهذا جوهر الفجوة نحو التعادل.")}
     `;
   }
 };
@@ -3781,13 +3841,13 @@ PAGES["trend-analysis"] = {
       ${UI.panel({ title: "أنماط ملحوظة من البيانات", body: `
         <ul class="facts">
           <li><b>أعلى إيراد:</b> ${E.monthAr(bwRev.best.key)} (${E.fmt(bwRev.best.v)} ريال) — والأدنى ${E.monthAr(bwRev.worst.key)} (${E.fmt(bwRev.worst.v)} ريال).</li>
-          <li><b>أقل خسارة:</b> ${E.monthAr(bwNl.worst.key)} (${E.fmt(bwNl.worst.v)} ريال) — تحسّن واضح قرب نهاية الفترة بعد خفض المصروفات.</li>
-          <li><b>العلاقة بين المنحنيين:</b> في أغلب الشهور تحسن الإيراد صاحبه تحسن في الخسارة — الارتباط واضح في البيانات.</li>
-          <li><b>تذبذب المصروفات:</b> التشغيلية تتحرك بين ${E.fmt(Math.min(...opexTrendVals))} و${E.fmt(Math.max(...opexTrendVals))} ريال شهرياً — الربع الثاني شهد ذروتها ثم هبوطها في يوليو.</li>
+          <li><b>أقل خسارة:</b> ${E.monthAr(bwNl.worst.key)} (${E.fmt(bwNl.worst.v)} ريال) — تحسّن واضح قرب نهاية الفترة.</li>
+          <li><b>العلاقة بين المنحنيين:</b> ${ms.slice(1).filter((k, i) => FIN.years[2026][k].revenue > FIN.years[2026][ms[i]].revenue && FIN.years[2026][k].netLoss < FIN.years[2026][ms[i]].netLoss).length} من ${ms.length - 1} شهراً ارتفعت فيها الإيرادات عن الشهر السابق وتراجعت الخسارة معها.</li>
+          <li><b>تذبذب المصروفات:</b> التشغيلية تتحرك بين ${E.fmt(Math.min(...opexTrendVals))} و${E.fmt(Math.max(...opexTrendVals))} ريال شهرياً — ذروتها في ${E.monthAr(E.extremeKey(k => FIN.years[2026][k].operatingExpenses, scope))} وأدناها في ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))}.</li>
         </ul>` })}
-      ${UI.panel({ title: "القراءة الموسمية — 7 أشهر للسنتين", body: `
-        <p class="lead-p">باكتمال سبعة أشهر للسنتين ظهرت أنماط قابلة للقراءة: مايو قمة المبيعات في السنتين معاً (102,897 في 2026 و64,601 في 2025)، ويوليو ينزلق في السنتين — نمط يتكرر ويستحق التخطيط المسبق. في 2026 كانت ذروة المصروفات التشغيلية في مايو ويونيو ثم انخفاضها الحاد في يوليو، وصاحبه تحسن النتيجة (خسارة 3,288 ريال فقط).</p>
-        <div class="note-line">المقارنة السنوية الكاملة متاحة الآن: 7 أشهر مقابل 7 أشهر.</div>` })}
+      ${UI.panel({ title: "القراءة الموسمية — نفس الأشهر (" + E.sharedText(scope) + ")", body: `
+        <p class="lead-p">أعلى شهر إيرادات في 2026 هو ${E.monthAr(E.bestWorst(2026, "revenue", scope).best.key)} (${E.fmt(E.bestWorst(2026, "revenue", scope).best.v)} ريال)، وأعلى شهر في 2025 ${E.monthAr(E.extremeKey(k => FIN.years[2025][k] ? FIN.years[2025][k].revenue : -Infinity, { period: "ytd" }))} (على نفس الأشهر: ${E.sharedText(scope)}). المصروفات التشغيلية كانت في أدناها ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))} (${E.fmt(E.extremeKey ? FIN.years[2026][E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope)].operatingExpenses : 0)} ريال)، وتحسنت النتيجة في ${E.monthAr(E.bestWorst(2026, "netLoss", scope).worst.key)} (خسارة ${E.fmt(E.bestWorst(2026, "netLoss", scope).worst.v)} ريال فقط).</p>
+        <div class="note-line">المقارنة على نفس الأشهر: ${E.sharedText(scope)}.</div>` })}
     </div>
     `;
   }
@@ -3807,11 +3867,11 @@ PAGES["financial-risk"] = {
     const bwRevR = E.bestWorst(2026, "revenue", scope);
     const mgrCmp = E.compare("managerialExpenses", scope);
     const risks = [
-      { level: "مرتفع", tone: "crit", name: "تركّز التكلفة في بند الرواتب", ev: salaryOp + " ريال = " + E.fmtPct(salaryOp / t26.revenue * 100) + " من الإيرادات و" + E.fmtPct(salaryOp / t26.grossProfit * 100) + " من الربح الإجمالي", impact: "أي تراجع مبيعات يتحول مباشرة لخسارة مضاعفة دون قدرة على الامتصاص", focus: "خطة تخفيض تدريجي إلى نطاق 30–35% من الإيرادات" },
-      { level: "مرتفع", tone: "crit", name: "خسارة تشغيلية مستمرة", ev: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ريال (كل الأشهر خاسرة تشغيلياً)", impact: "تآكل رأس المال العامل شهراً بعد شهر", focus: "الوصول لنقطة التعادل (111,020 ريال/شهر) كهدف أول" },
-      { level: "متوسط", tone: "warn", name: "تراجع هامش الربح الإجمالي", ev: E.fmtPct(t25.grossMargin) + " → " + E.fmtPct(t26.grossMargin) + " (-" + E.fmtPct(Math.abs(t26.grossMargin - t25.grossMargin), { digits: 1 }) + " نقطة)", impact: "تقلص المساحة التشغيلية المتاحة لتغطية المصروفات", focus: "مراجعة التسعير والمشتريات؛ مستهدف 52–55%" },
+      { level: "مرتفع", tone: "crit", name: "تركّز التكلفة في بند الرواتب", ev: E.fmt(salaryOp) + " ريال = " + E.fmtPct(salaryOp / t26.revenue * 100) + " من الإيرادات و" + E.fmtPct(salaryOp / t26.grossProfit * 100) + " من الربح الإجمالي", impact: "أي تراجع مبيعات يتحول مباشرة لخسارة مضاعفة دون قدرة على الامتصاص", focus: "خطة تخفيض تدريجي إلى نطاق 30–35% من الإيرادات" },
+      { level: "مرتفع", tone: "crit", name: "خسارة تشغيلية مستمرة", ev: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ريال (" + E.scopeAvailableMonths(2026, scope).filter(k => FIN.years[2026][k].operatingExpenses > FIN.years[2026][k].grossProfit).length + " من " + E.scopeAvailableMonths(2026, scope).length + " أشهر خاسرة تشغيلياً)", impact: "تآكل رأس المال العامل شهراً بعد شهر", focus: "الوصول لنقطة التعادل (" + E.fmt(FIN.breakEven.requiredSales) + " ريال/شهر) كهدف أول" },
+      { level: "متوسط", tone: "warn", name: "تراجع هامش الربح الإجمالي", ev: E.fmtPct(E.pri(scope).grossMargin) + " → " + E.fmtPct(E.cur(scope).grossMargin) + " (-" + E.fmtPct(Math.abs(E.cur(scope).grossMargin - E.pri(scope).grossMargin), { digits: 1 }) + " نقطة)", impact: "تقلص المساحة التشغيلية المتاحة لتغطية المصروفات", focus: "مراجعة التسعير والمشتريات؛ مستهدف 52–55%" },
       { level: "متوسط", tone: "warn", name: "صعود المصروفات الإدارية", ev: E.fmtPct(mgrCmp.variancePct, { sign: true, digits: 1 }) + " سنوياً (" + E.fmt(mgrCmp.prior) + " → " + E.fmt(mgrCmp.actual) + " ريال)", impact: "الاتجاه المعاكس لجهود ضبط التشغيل — يستهلك جزءاً من تحسن النتيجة", focus: "سقف شهري وفحص بندي «خدمات أخرى» و«مصروفات حكومية»" },
-      { level: "متوسط", tone: "warn", name: "تذبذب المبيعات الشهري", ev: "مدى التذبذب: " + E.fmt(bwRevR.worst.v) + "–" + E.fmt(bwRevR.best.v) + " ريال (±" + Math.round((bwRevR.best.v - bwRevR.worst.v) / bwRevR.worst.v * 100) + "%)", impact: "صعوبة التخطيط والالتزامات الثابتة (رواتب + إيجار)", focus: "فهم نمط مارس وتثبيت مستوى مايو" }
+      { level: "متوسط", tone: "warn", name: "تذبذب المبيعات الشهري", ev: "مدى التذبذب: " + E.fmt(bwRevR.worst.v) + "–" + E.fmt(bwRevR.best.v) + " ريال (أعلى بـ+" + Math.round((bwRevR.best.v - bwRevR.worst.v) / bwRevR.worst.v * 100) + "%)", impact: "صعوبة التخطيط والالتزامات الثابتة (رواتب + إيجار)", focus: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت مستوى " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }
     ];
     el.innerHTML = `
     ${UI.sectionHead("25", "FINANCIAL ANALYSIS · التحليل المالي", "المخاطر المالية", "كل خطر مصنّف بمستواه وأدلته الرقمية وتركيز الإدارة")}
@@ -3827,7 +3887,7 @@ PAGES["financial-risk"] = {
           </div>
         </div>`).join("")}
     </div>
-    ${UI.insight("الخطران المرتفعان مترابطان: الرواتب الجمودية + الخسارة التشغيلية. معالجتهما تبدأ من صفحة واحدة — خفض كتلة الرواتب من " + E.fmtPct(salaryOp / t26.revenue * 100) + " إلى 30–35% من الإيرادات يحرك في آن واحد: نقطة التعادل، والهامش الصافي، وقابلية الشركة لامتصاص التذبذب.")}
+    ${UI.insight("الخطران المرتفعان مترابطان: الرواتب الثابتة + الخسارة التشغيلية. معالجتهما تبدأ من صفحة واحدة — خفض كتلة الرواتب من " + E.fmtPct(salaryOp / t26.revenue * 100) + " إلى 30–35% من الإيرادات يحرك في آن واحد: نقطة التعادل، والهامش الصافي، وقابلية الشركة لامتصاص التذبذب.")}
     `;
   }
 };
@@ -3846,11 +3906,11 @@ PAGES["key-findings"] = {
     const bwRevF = E.bestWorst(2026, "revenue", scope), bwNlF = E.bestWorst(2026, "netLoss", scope);
     const beGap = FIN.breakEven.requiredSales - t26.avgRevenue;
     const f = [
-      { t: "النمو حاضر لكنه غير كافٍ", d: `الإيرادات ${E.fmt(t26.revenue)} ريال (${E.fmtPct(revC.variancePct, { sign: true, digits: 1 })} سنوياً) بينما الخسارة ${E.fmt(t26.netLoss)} ريال — النمو الحالي يمتص الخسارة ولا يلغيها.` },
+      { t: "النمو حاضر لكنه غير كافٍ", d: `الإيرادات ${E.fmt(t26.revenue)} ريال (${E.fmtPct(revC.variancePct, { sign: true, digits: 1 })} على نفس الأشهر) بينما الخسارة ${E.fmt(t26.netLoss)} ريال — النمو الحالي يمتص الخسارة ولا يلغيها.` },
       { t: "الرواتب هي المسألة الأولى", d: `${E.fmt(salaryOp)} ريال تشغيلية (${E.fmtPct(salaryOp / t26.revenue * 100)} من الإيرادات) مقابل مستهدف 30–35% — أكبر رافعة ربحية متاحة وأخطر بند تكلفة.` },
-      { t: "كبح المصروفات التشغيلية نجح نسبياً", d: `نمت ${E.fmtPct(opexC.variancePct, { sign: true, digits: 1 })} فقط مقابل نمو إيرادات ${E.fmtPct(revC.variancePct, { sign: true, digits: 1 })} — نسبتها من الإيرادات هبطت من ${E.fmtPct(t25.opexRatio)} إلى ${E.fmtPct(t26.opexRatio)}، ويوليو وحده خفضها إلى ${E.fmt(FIN.years[2026].jul.operatingExpenses)} ريال.` },
-      { t: "استثناء إداري واحد", d: `المصروفات الإدارية ${E.fmtPct(mgrC2.variancePct, { sign: true, digits: 1 })} — الاتجاه المعاكس الوحيد بين مجموعات التكلفة.` },
-      { t: `${E.monthAr(bwNlF.worst.key)} شهر مفترق`, d: `أدنى خسارة في الفترة (${E.fmt(bwNlF.worst.v)} ريال) بعد خفض كبير للمصروفات التشغيلية — إن استمر النمط، سيتغير الحكم الكامل على السنة.` },
+      { t: "كبح المصروفات التشغيلية نجح نسبياً", d: `نمت ${E.fmtPct(opexC.variancePct, { sign: true, digits: 1 })} فقط مقابل نمو إيرادات ${E.fmtPct(revC.variancePct, { sign: true, digits: 1 })} — نسبتها من الإيرادات هبطت من ${E.fmtPct(t25.opexRatio)} إلى ${E.fmtPct(E.cur(scope).opexRatio)} (على نفس الأشهر)، وأدنى شهر تشغيلي كان ${E.monthAr(E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope))} (${E.fmt(FIN.years[2026][E.extremeKey(k => -FIN.years[2026][k].operatingExpenses, scope)].operatingExpenses)} ريال).` },
+      { t: "استثناء إداري واحد", d: `المصروفات الإدارية ${E.fmtPct(mgrC2.variancePct, { sign: true, digits: 1 })} — الأعلى ارتفاعاً بين مجموعات المصروفات.` },
+      { t: `${E.monthAr(bwNlF.worst.key)} شهر مفترق`, d: `أدنى خسارة في الفترة (${E.fmt(bwNlF.worst.v)} ريال) بمصروفات تشغيلية ${E.fmt(FIN.years[2026][bwNlF.worst.key].operatingExpenses)} ريال — إن استمر النمط، سيتغير الحكم الكامل على السنة.` },
       { t: `المسافة للتعادل: +${Math.round(beGap / t26.avgRevenue * 100)}%`, d: `الفجوة ${E.fmt(beGap)} ريال شهرياً بين المتوسط الفعلي (${E.fmt(Math.round(t26.avgRevenue))}) والتعادل المعتمد (${E.fmt(FIN.breakEven.requiredSales)}) — قابلة للردم بزيادة مبيعات أو خفض تكلفة أو مزيج منهما.` }
     ];
     el.innerHTML = `
@@ -3883,10 +3943,10 @@ PAGES["risks"] = {
     ${UI.sectionHead("27", "MANAGEMENT · الإدارة", "المخاطر", "التفاصيل الكاملة في صفحة المخاطر المالية — هنا سجل إداري مختصر")}
     ${UI.panel({ title: "سجل المخاطر", body: UI.table({ heads: ["#", "المخاطرة", "المستوى", "المؤشر الرقمي", "الإجراء المقترح"], rows: [
       { cells: [{ html: "R01" }, { html: "<b>تركّز التكلفة في الرواتب</b>" }, { html: `<span class="risk-level lvl-crit">مرتفع</span>` }, { html: E.fmtPct(salaryOp / t26.revenue * 100) + " من الإيرادات", cls: "num" }, { html: "خطة تخفيض تدريجي إلى 30–35%" }] },
-      { cells: [{ html: "R02" }, { html: "<b>خسارة تشغيلية مستمرة</b>" }, { html: `<span class="risk-level lvl-crit">مرتفع</span>` }, { html: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ر.ق", cls: "num" }, { html: "استهداف التعادل 111,020/شهر" }] },
-      { cells: [{ html: "R03" }, { html: "<b>تراجع هامش الربح الإجمالي</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: E.fmtPct(t25.grossMargin) + " → " + E.fmtPct(t26.grossMargin), cls: "num" }, { html: "مراجعة التسعير والمشتريات" }] },
+      { cells: [{ html: "R02" }, { html: "<b>خسارة تشغيلية مستمرة</b>" }, { html: `<span class="risk-level lvl-crit">مرتفع</span>` }, { html: "الربح التشغيلي " + E.fmt(t26.operatingProfit) + " ر.ق", cls: "num" }, { html: "استهداف التعادل " + E.fmt(FIN.breakEven.requiredSales) + "/شهر" }] },
+      { cells: [{ html: "R03" }, { html: "<b>تراجع هامش الربح الإجمالي</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: E.fmtPct(E.pri(scope).grossMargin) + " → " + E.fmtPct(E.cur(scope).grossMargin), cls: "num" }, { html: "مراجعة التسعير والمشتريات" }] },
       { cells: [{ html: "R04" }, { html: "<b>صعود المصروفات الإدارية</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: E.fmtPct(mgrC3.variancePct, { sign: true, digits: 1 }) + " سنوياً", cls: "num" }, { html: "سقف شهري وفحص البنود" }] },
-      { cells: [{ html: "R05" }, { html: "<b>تذبذب المبيعات</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: "±" + Math.round((bwRevR2.best.v - bwRevR2.worst.v) / bwRevR2.worst.v * 100) + "% بين الشهور", cls: "num" }, { html: "فهم نمط مارس وتثبيت مايو" }] }
+      { cells: [{ html: "R05" }, { html: "<b>تذبذب المبيعات</b>" }, { html: `<span class="risk-level lvl-warn">متوسط</span>` }, { html: "أعلى بـ+" + Math.round((bwRevR2.best.v - bwRevR2.worst.v) / bwRevR2.worst.v * 100) + "% من أدنى شهر", cls: "num" }, { html: "فهم نمط " + E.monthAr(E.bestWorst(2026, "revenue", scope).worst.key) + " وتثبيت " + E.monthAr(E.bestWorst(2026, "revenue", scope).best.key) }] }
     ] })})}
     `;
   }
@@ -3908,10 +3968,10 @@ PAGES["opportunities"] = {
     const lift52 = Math.round((52 - t26.grossMargin) / 100 * t26.revenue);
     const lift55 = Math.round((55 - t26.grossMargin) / 100 * t26.revenue);
     const ops = [
-      { t: "تحرير فجوة الرواتب", d: `الرواتب التشغيلية ${E.fmt(salaryOp)} ريال (${E.fmtPct(salaryOp / t26.revenue * 100)} من الإيرادات) — خفضها إلى 35% من الإيرادات يحرر نحو ${E.fmt(Math.round(salaryOp - t26.revenue * 0.35))} ريال للفترة.`, metric: E.fmt(salaryOp) + " ر.ق" },
-      { t: "التفاوض على الإيجار", d: "6,600 ريال شهرياً بند ثابت — إعادة التفاوض أو الانتقال لموقع أقل تكلفة يوفر حتى 26,400 ريال سنوياً عند نفس مستوى الفترة.", metric: "6,600/شهر" },
-      { t: "رفع الهامش 2.5–5.5 نقطة", d: `رفع هامش الربح الإجمالي من ${E.fmtPct(t26.grossMargin)} إلى نطاق 52–55% يضيف ${E.fmt(lift52)}–${E.fmt(lift55)} ريال ربح إجمالي عند نفس إيرادات الفترة.`, metric: "52–55%" },
-      { t: `استثمار زخم ${E.monthAr(bwRevO.best.key)}`, d: `تثبيت مستوى ${E.fmt(bwRevO.best.v)} ريال شهرياً (أعلى شهر) يرفع إيراد الفترة بمقدار ${E.fmt(bwRevO.best.v * 7 - t26.revenue)} ريال — ويقرب الشركة من هدف التعادل المعتمد (111,020 ريال/شهر).`, metric: E.fmt(bwRevO.best.v) + " ر.ق" },
+      { t: "تحرير فجوة الرواتب", d: `الرواتب التشغيلية ${E.fmt(salaryOp)} ريال (${E.fmtPct(salaryOp / t26.revenue * 100)} من الإيرادات) — خفضها إلى 30% من الإيرادات يحرر نحو ${E.fmt(Math.round(salaryOp - t26.revenue * 0.30))} ريال للفترة (الوضع الحالي ضمن نطاق 30–35%، والهدف الأدنى هو الرافعة).`, metric: E.fmt(salaryOp) + " ر.ق" },
+      { t: "التفاوض على الإيجار", d: "6,600 ريال شهرياً بند ثابت — إعادة التفاوض أو الانتقال لموقع أقل تكلفة كل تخفيض 10% يوفر 7,920 ريال سنوياً (التكلفة الحالية 79,200 ريال سنوياً).", metric: "6,600/شهر" },
+      { t: `رفع الهامش ${(52 - t26.grossMargin).toFixed(1)}–${(55 - t26.grossMargin).toFixed(1)} نقطة`, d: `رفع هامش الربح الإجمالي من ${E.fmtPct(t26.grossMargin)} إلى نطاق 52–55% يضيف ${E.fmt(lift52)}–${E.fmt(lift55)} ريال ربح إجمالي عند نفس إيرادات الفترة.`, metric: "52–55%" },
+      { t: `استثمار زخم ${E.monthAr(bwRevO.best.key)}`, d: `تثبيت مستوى ${E.fmt(bwRevO.best.v)} ريال شهرياً (أعلى شهر) لو بقيت كل أشهر الفترة عند هذا المستوى لارتفع إيراد الفترة بمقدار ${E.fmt(bwRevO.best.v * t26.monthCount - t26.revenue)} ريال (افتراض، وليس أثراً محققاً) — ويقرب الشركة من هدف التعادل المعتمد (${E.fmt(FIN.breakEven.requiredSales)} ريال/شهر).`, metric: E.fmt(bwRevO.best.v) + " ر.ق" },
       { t: "حوكمة الإنفاق التسويقي", d: `${E.fmt(mktTotal)} ريال (Techflex ${E.fmt(get("techflex"))} + تسويق ${E.fmt(get("marketing"))}) بلا قياس عائد معلن — قياس ROI لكل قناة قبل أي تجديد عقود.`, metric: E.fmt(mktTotal) + " ر.ق" }
     ];
     el.innerHTML = `
@@ -3987,12 +4047,12 @@ PAGES["action-plan"] = {
     const mgrC4 = E.compare("managerialExpenses", ST.scope);
     const rows = [
       { a: "خفض نسبة الرواتب التشغيلية من الإيرادات", p: "عاجلة", h: "فوري – 3 أشهر", k: E.fmtPct(salaryOp / t26.revenue * 100) + " → 30–35%" },
-      { a: "رفع المبيعات الشهرية نحو نقطة التعادل", p: "عاجلة", h: "فوري – 3 أشهر", k: E.fmt(Math.round(t26.avgRevenue)) + " → 111,020 ريال/شهر" },
+      { a: "رفع المبيعات الشهرية نحو نقطة التعادل", p: "عاجلة", h: "فوري – 3 أشهر", k: E.fmt(Math.round(t26.avgRevenue)) + " → " + E.fmt(FIN.breakEven.requiredSales) + " ريال/شهر" },
       { a: "قياس عائد التسويق لكل قناة", p: "عاجلة", h: "فوري – شهر", k: "ROI لكل قناة (Techflex 2,500/شهر)" },
       { a: "مراجعة التسعير ودراسة المنافسين", p: "متوسطة", h: "3–6 أشهر", k: E.fmtPct(t26.grossMargin) + " → 52–55%" },
       { a: "إعادة التفاوض على الإيجار", p: "متوسطة", h: "3–6 أشهر", k: "تخفيض من 6,600 ريال/شهر" },
       { a: "ضبط المصروفات الإدارية بسقف شهري", p: "متوسطة", h: "3–6 أشهر", k: "وقف النمو " + E.fmtPct(mgrC4.variancePct, { sign: true, digits: 1 }) },
-      { a: "تثبيت أسلوب تشغيل يوليو (أقل خسارة)", p: "متوسطة", h: "3 أشهر", k: "خسارة 3,288 → أقل من 5,000 ريال/شهر" },
+      { a: `تثبيت أسلوب تشغيل ${E.monthAr(E.bestWorst(2026, "netLoss", ST.scope).worst.key)} (أقل خسارة)`, p: "متوسطة", h: "3 أشهر", k: `خسارة ${E.fmt(E.bestWorst(2026, "netLoss", ST.scope).worst.v)} → أقل من 5,000 ريال/شهر` },
       { a: "قرار التوسع أو التركيز", p: "طويلة", h: "6–12 شهر", k: "دراسة معتمدة بقرار" },
       { a: "تغذية المنصة ببيانات الشهور القادمة", p: "عاجلة", h: "فور صدورها", k: "استمرار الرصد الشهري الكامل" }
     ];
@@ -4004,7 +4064,7 @@ PAGES["action-plan"] = {
       { html: r.h },
       { html: `<b>${r.k}</b>` }
     ]})) })})}
-    ${UI.focus(["أول 90 يوماً: بندان فقط يصنعان الفرق — الرواتب والمبيعات.", "البيانات مكتملة الآن للسنتين (7 أشهر) — كل خطة ستُعاد معايرتها شهرياً مع تحديث المنصة.", "يُنصح بمراجعة هذه الخطة في اجتماع شهري ثابت مع تحديث المنصة."])}
+    ${UI.focus(["أول 90 يوماً: بندان فقط يصنعان الفرق — الرواتب والمبيعات.", "بيانات 2026 متاحة حتى " + E.monthAr(E.latestMonth(2026)) + " وبيانات 2025 حتى " + E.monthAr(E.latestMonth(2025)) + " — كل خطة ستُعاد معايرتها شهرياً مع تحديث المنصة.", "يُنصح بمراجعة هذه الخطة في اجتماع شهري ثابت مع تحديث المنصة."])}
     `;
   }
 };
@@ -4022,9 +4082,9 @@ PAGES["charts-gallery"] = {
     const labels = ms.map(E.monthAr);
     const t26 = E.totals(2026, scope);
 
-    const rev26 = ms.map(k => -FIN.years[2026][k].revenue);
-    const rev25 = ms.map(k => FIN.years[2025][k] ? -FIN.years[2025][k].revenue : null);
-    const gp26 = ms.map(k => -FIN.years[2026][k].grossProfit);
+    const rev26 = ms.map(k => FIN.years[2026][k].revenue);
+    const rev25 = ms.map(k => FIN.years[2025][k] ? FIN.years[2025][k].revenue : null);
+    const gp26 = ms.map(k => FIN.years[2026][k].grossProfit);
     const nl26 = ms.map(k => FIN.years[2026][k].netLoss);
     const opex26 = ms.map(k => FIN.years[2026][k].operatingExpenses);
     const mgr26 = ms.map(k => FIN.years[2026][k].managerialExpenses);
@@ -4125,12 +4185,12 @@ PAGES["charts-gallery"] = {
           { name: "تغير الخسارة", type: "line", color: CH.C.burgundy }
         ] })})}
       ${UI.panel({ title: "خريطة نقطة التعادل — شهرياً", body: CH.breakEvenChart({
-        maxX, maxY, beX: beComputed, actualX: be.actualAvgSales,
+        maxX, maxY, beX: beComputed, actualX: Math.round(t26.avgRevenue),
         revenuePoints: [{ x: 0, y: 0 }, { x: maxX, y: maxX }],
         costPoints: [{ x: 0, y: avgMonthlyTotalExpenses }, { x: maxX, y: Math.round(avgMonthlyTotalExpenses + maxX * varRate) }],
         fixedPoints: [{ x: 0, y: be.fixedMonthly.total }, { x: maxX, y: be.fixedMonthly.total }],
         markers: [{ x: be.requiredSales, label: "تعادل الشركة المعتمد " + E.fmt(be.requiredSales), color: CH.C.blue, align: "right" }],
-        fmt: v => E.fmt(v), beLabel: "التعادل المحسوب " + E.fmt(beComputed), actualLabel: "الفعلي " + E.fmt(be.actualAvgSales), xLabel: "المبيعات الشهرية (ريال قطري)",
+        fmt: v => E.fmt(v), beLabel: "التعادل المحسوب " + E.fmt(beComputed), actualLabel: "الفعلي " + E.fmt(Math.round(t26.avgRevenue)), xLabel: "المبيعات الشهرية (ريال قطري)",
         legend: [
           { name: "خط المبيعات", type: "line", color: CH.C.gold },
           { name: "خط التكلفة الإجمالية", type: "line", color: CH.C.burgundy },
